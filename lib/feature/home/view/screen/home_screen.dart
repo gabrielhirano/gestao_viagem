@@ -7,8 +7,10 @@ import 'package:gestao_viajem/core/layout/components/app_text.dart';
 import 'package:gestao_viajem/core/layout/foundation/app_shapes.dart';
 import 'package:gestao_viajem/core/theme/theme_global.dart';
 import 'package:gestao_viajem/core/util/num_extension.dart';
+import 'package:gestao_viajem/core/util/string_extension.dart';
 import 'package:gestao_viajem/core/view/loading_screen.dart';
 import 'package:gestao_viajem/feature/expense/model/expense_model.dart';
+import 'package:gestao_viajem/feature/expense/view/widget/expense_card_widget.dart';
 
 import 'package:gestao_viajem/feature/home/controller/home_controller.dart';
 import 'package:gestao_viajem/feature/home/view/widget/acess_card_report_widget.dart';
@@ -53,9 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 110,
         width: MediaQuery.of(context).size.width - 30,
         decoration: AppShapes.decoration(
-            radius: RadiusSize.medium,
-            border: ShapesBorder(appColors.greyLight),
-            color: appColors.white),
+          radius: RadiusSize.medium,
+          border: ShapesBorder(appColors.greyLight.withOpacity(0.2)),
+          color: appColors.white,
+        ),
         alignment: Alignment.center,
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -90,8 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 50,
                 width: double.infinity,
                 decoration: AppShapes.decoration(
-                    radius: RadiusSize.medium,
-                    color: appColors.colorBrandPrimaryBlue),
+                    radius: RadiusSize.medium, color: appColors.orange),
                 child: Center(
                   child: AppText(
                     text: 'Adicionar despesa',
@@ -117,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _sucessState(List<ExpenseModel> expenses) {
+    print(expenses);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: CustomScrollView(
@@ -150,16 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SliverToBoxAdapter(child: SizedBox(height: 10)),
           SliverList(
               delegate: SliverChildBuilderDelegate(
-            (_, index) {
-              return Container(
-                height: 60,
-                margin: const EdgeInsets.only(bottom: 10),
-                decoration: AppShapes.decoration(
-                  radius: RadiusSize.medium,
-                  color: appColors.greyLight.withOpacity(0.1),
-                ),
-              );
-            },
+            (_, index) => ExpenseCardWidget(expense: expenses[index]),
             childCount: expenses.length,
           )),
           const SliverToBoxAdapter(child: SizedBox(height: 140)),

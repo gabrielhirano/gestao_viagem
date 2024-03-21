@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 
 enum ExpenseCategory {
   feeding('alimentação'),
@@ -39,6 +40,18 @@ class ExpenseModel extends Equatable {
   @override
   List<Object?> get props {
     return [name, category, value, date, comment];
+  }
+
+  String get dateFormated {
+    DateFormat formato = DateFormat('dd/MM/yyyy');
+
+    return formato.format(date);
+  }
+
+  String get hour {
+    DateFormat formato = DateFormat('HH:mm');
+
+    return formato.format(date);
   }
 
   ExpenseModel copyWith({

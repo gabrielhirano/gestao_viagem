@@ -6,6 +6,8 @@ abstract class IAppColors {
   final colorBrandPrimaryBlueLight = const Color(0xFF5AB7F5);
 
   final colorBrandSecondaryGreen = const Color(0xFF26a69a);
+  final colorBrandSecondaryGreenLight =
+      const Color(0xFF26a69a).withOpacity(0.17);
 
   // Background
   final colorBackgroundWhite = const Color(0xFFf2f2f2);
@@ -23,6 +25,7 @@ abstract class IAppColors {
   final white = const Color(0xFFFFFFFF);
   final black = const Color(0xFF000000);
   final blue = const Color(0xFF32759A);
+  final orange = Color.fromARGB(255, 255, 118, 50);
 
   final transparent = Colors.transparent;
 
