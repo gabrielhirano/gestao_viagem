@@ -1,0 +1,143 @@
+[
+    {
+        "name": "McDonald's",
+        "category": "alimentação",
+        "value": 39.89,
+        "date": 1672517576000,
+        "comment": "Refeição durante a viagem"
+    },
+    {
+        "name": "Uber",
+        "category": "transporte",
+        "value": 25.50,
+        "date": 1672365076000,
+        "comment": "Transporte do hotel para a conferência"
+    },
+    {
+        "name": "Hotel ABC",
+        "category": "hospedagem",
+        "value": 150.00,
+        "date": 1672192276000,
+        "comment": "Hospedagem durante a viagem de negócios"
+    },
+    {
+        "name": "Cinema",
+        "category": "outros",
+        "value": 15.75,
+        "date": 1672126676000,
+        "comment": "Filme assistido durante a viagem"
+    },
+    {
+        "name": "Post-its",
+        "category": "outros",
+        "value": 5.25,
+        "date": 1672040276000,
+        "comment": "Compra de material de escritório para a equipe"
+    },
+    {
+        "name": "Starbucks",
+        "category": "outros",
+        "value": 12.35,
+        "date": 1671947476000,
+        "comment": "Café da manhã durante a viagem"
+    },
+    {
+        "name": "Táxi",
+        "category": "transporte",
+        "value": 20.00,
+        "date": 1671774676000,
+        "comment": "Táxi do aeroporto para o hotel"
+    },
+    {
+        "name": "Airbnb",
+        "category": "hospedagem",
+        "value": 120.00,
+        "date": 1671698276000,
+        "comment": "Hospedagem alternativa para a equipe"
+    },
+    {
+        "name": "Museu de Arte",
+        "category": "outros",
+        "value": 10.50,
+        "date": 1671601876000,
+        "comment": "Visita ao museu durante o tempo livre"
+    },
+    {
+        "name": "Canetas",
+        "category": "outros",
+        "value": 3.75,
+        "date": 1671429076000,
+        "comment": "Compra de canetas para o escritório"
+    },
+
+    {
+        "name": "McDonald's",
+        "category": "alimentação",
+        "value": 39.89,
+        "date": 1672517576000,
+        "comment": "Refeição durante a viagem"
+    },
+    {
+        "name": "Uber",
+        "category": "transporte",
+        "value": 25.50,
+        "date": 1672365076000,
+        "comment": "Transporte do hotel para a conferência"
+    },
+    {
+        "name": "Hotel ABC",
+        "category": "hospedagem",
+        "value": 150.00,
+        "date": 1672192276000,
+        "comment": "Hospedagem durante a viagem de negócios"
+    },
+    {
+        "name": "Cinema",
+        "category": "outros",
+        "value": 15.75,
+        "date": 1672126676000,
+        "comment": "Filme assistido durante a viagem"
+    },
+    {
+        "name": "Post-its",
+        "category": "outros",
+        "value": 5.25,
+        "date": 1672040276000,
+        "comment": "Compra de material de escritório para a equipe"
+    },
+    {
+        "name": "Starbucks",
+        "category": "outros",
+        "value": 12.35,
+        "date": 1671947476000,
+        "comment": "Café da manhã durante a viagem"
+    },
+    {
+        "name": "Táxi",
+        "category": "transporte",
+        "value": 20.00,
+        "date": 1671774676000,
+        "comment": "Táxi do aeroporto para o hotel"
+    },
+    {
+        "name": "Airbnb",
+        "category": "hospedagem",
+        "value": 120.00,
+        "date": 1671698276000,
+        "comment": "Hospedagem alternativa para a equipe"
+    },
+    {
+        "name": "Museu de Arte",
+        "category": "outros",
+        "value": 10.50,
+        "date": 1671601876000,
+        "comment": "Visita ao museu durante o tempo livre"
+    },
+    {
+        "name": "Canetas",
+        "category": "outros",
+        "value": 3.75,
+        "date": 1671429076000,
+        "comment": "Compra de canetas para o escritório"
+    }
+]

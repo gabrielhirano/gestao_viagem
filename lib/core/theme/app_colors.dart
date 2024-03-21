@@ -16,8 +16,8 @@ abstract class IAppColors {
   final colorFeedbackInfo = const Color(0xFF31ccec);
   final colorFeedbackWarning = const Color(0xFFf2c037);
 
-  final colorTextBlack = const Color(0xFF424242);
-  final colorTextBlackLight = const Color(0xFF8E8E8E);
+  final colorTextBlack = const Color(0xFF484554);
+  final colorTextBlackLight = Color.fromARGB(255, 12, 42, 66);
 
   // Generics
   final white = const Color(0xFFFFFFFF);
@@ -25,6 +25,8 @@ abstract class IAppColors {
   final blue = const Color(0xFF32759A);
 
   final transparent = Colors.transparent;
+
+  final greyLight = const Color(0xFF4A4A4A).withOpacity(0.3);
 
   // Generics - Dark
   final greyDark = const Color(0xFF4A4A4A);

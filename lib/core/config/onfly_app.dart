@@ -15,9 +15,10 @@ class _OnflyAppState extends State<OnflyApp> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       // home: LoadingScreen(),
-      home: MainScreen(),
-      // home: LoginScreen(),
+      // home: MainScreen(),
+      home: HomeScreen(),
     );
   }
 }
