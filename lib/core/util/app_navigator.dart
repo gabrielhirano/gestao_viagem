@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 
 class AppNavigator {
-  late final BuildContext _context;
-  set context(BuildContext context) => _context = context;
-  AppNavigator();
+  late GlobalKey<NavigatorState> _navigatorKey;
 
-  void navigate(dynamic destination) {
-    Navigator.push(
-      _context,
-      MaterialPageRoute(
-          builder: (context) => destination,
-          fullscreenDialog: false,
-          maintainState: false),
-    );
+  set navigatorKey(GlobalKey<NavigatorState> navigatorKey) =>
+      _navigatorKey = navigatorKey;
+
+  void navigate(Widget destination) {
+    _navigatorKey.currentState
+        ?.push(MaterialPageRoute(builder: (context) => destination));
   }
 
-  void popNavigate() => Navigator.pop(_context);
+  popNavigate() {
+    if (_navigatorKey.currentState?.canPop() ?? false) {
+      _navigatorKey.currentState?.pop();
+    }
+  }
 
-  void popToRoot() => Navigator.popUntil(_context, (route) => route.isFirst);
+  popToRoot() {
+    if (_navigatorKey.currentState?.canPop() ?? false) {
+      _navigatorKey.currentState
+          ?.popUntil((Route<dynamic> route) => route.isFirst);
+    }
+  }
 }

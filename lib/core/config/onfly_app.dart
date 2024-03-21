@@ -14,20 +14,23 @@ class OnflyApp extends StatefulWidget {
 }
 
 class _OnflyAppState extends State<OnflyApp> {
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey();
+
   @override
   void initState() {
-    getIt<AppNavigator>().context = context;
+    getIt<AppNavigator>().navigatorKey = _navigatorKey;
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorKey: _navigatorKey,
       // home: LoadingScreen(),
       // home: MainScreen(),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }

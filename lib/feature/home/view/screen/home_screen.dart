@@ -9,11 +9,13 @@ import 'package:gestao_viajem/core/layout/components/app_text.dart';
 import 'package:gestao_viajem/core/layout/foundation/app_shapes.dart';
 import 'package:gestao_viajem/core/theme/theme_global.dart';
 import 'package:gestao_viajem/core/helpers/extension/num_extension.dart';
+import 'package:gestao_viajem/core/util/global.dart';
 
 import 'package:gestao_viajem/core/view/loading_screen.dart';
 import 'package:gestao_viajem/core/view/widget/offline_connection_widget.dart';
 import 'package:gestao_viajem/feature/expense/controller/expense_controller.dart';
 import 'package:gestao_viajem/feature/expense/model/expense_model.dart';
+import 'package:gestao_viajem/feature/expense/view/screen/expense_screen.dart';
 import 'package:gestao_viajem/feature/expense/view/widget/expense_card_widget.dart';
 
 import 'package:gestao_viajem/feature/home/view/widget/acess_card_report_widget.dart';
@@ -109,16 +111,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              Container(
-                height: 50,
-                width: double.infinity,
-                decoration: AppShapes.decoration(
-                    radius: RadiusSize.medium, color: appColors.orange),
-                child: Center(
-                  child: AppText(
-                    text: 'Adicionar despesa',
-                    textStyle: AppTextStyle.paragraphExtrLargeBold,
-                    textColor: appColors.white,
+              InkWell(
+                onTap: () {
+                  appNavigator.navigate(ExpenseScreen());
+                },
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: AppShapes.decoration(
+                      radius: RadiusSize.medium, color: appColors.orange),
+                  child: Center(
+                    child: AppText(
+                      text: 'Adicionar despesa',
+                      textStyle: AppTextStyle.paragraphExtrLargeBold,
+                      textColor: appColors.white,
+                    ),
                   ),
                 ),
               ),
