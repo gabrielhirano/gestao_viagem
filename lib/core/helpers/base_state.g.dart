@@ -9,29 +9,29 @@ part of 'base_state.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$BaseState<T> on BaseStateBase<T>, Store {
-  Computed<bool>? _$noneComputed;
-
   Computed<AppState>? _$getStateComputed;
 
   @override
-  AppState get getState => (_$getStateComputed ??=
-          Computed<AppState>(() => super.getState, name: '_BaseState.getState'))
-      .value;
+  AppState get getState =>
+      (_$getStateComputed ??= Computed<AppState>(() => super.getState,
+              name: 'BaseStateBase.getState'))
+          .value;
   Computed<T?>? _$getDataComputed;
 
   @override
   T? get getData => (_$getDataComputed ??=
-          Computed<T?>(() => super.getData, name: '_BaseState.getData'))
+          Computed<T?>(() => super.getData, name: 'BaseStateBase.getData'))
       .value;
   Computed<DioException?>? _$getErrorComputed;
 
   @override
   DioException? get getError =>
       (_$getErrorComputed ??= Computed<DioException?>(() => super.getError,
-              name: '_BaseState.getError'))
+              name: 'BaseStateBase.getError'))
           .value;
 
-  late final _$_stateAtom = Atom(name: '_BaseState._state', context: context);
+  late final _$_stateAtom =
+      Atom(name: 'BaseStateBase._state', context: context);
 
   @override
   AppState get _state {
@@ -46,7 +46,7 @@ mixin _$BaseState<T> on BaseStateBase<T>, Store {
     });
   }
 
-  late final _$_dataAtom = Atom(name: '_BaseState._data', context: context);
+  late final _$_dataAtom = Atom(name: 'BaseStateBase._data', context: context);
 
   @override
   T? get _data {
@@ -61,7 +61,8 @@ mixin _$BaseState<T> on BaseStateBase<T>, Store {
     });
   }
 
-  late final _$_errorAtom = Atom(name: '_BaseState._error', context: context);
+  late final _$_errorAtom =
+      Atom(name: 'BaseStateBase._error', context: context);
 
   @override
   DioException? get _error {
@@ -77,7 +78,7 @@ mixin _$BaseState<T> on BaseStateBase<T>, Store {
   }
 
   late final _$executeAsyncAction =
-      AsyncAction('_BaseState.execute', context: context);
+      AsyncAction('BaseStateBase.execute', context: context);
 
   @override
   Future<void> execute(Future<T> Function() value) {

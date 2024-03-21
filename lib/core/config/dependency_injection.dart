@@ -1,5 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
+import 'package:gestao_viajem/core/controller/connectivity_controller.dart';
 import 'package:gestao_viajem/core/services/app_preferences.dart';
 import 'package:gestao_viajem/core/services/interceptor/cache_interceptor.dart';
 import 'package:gestao_viajem/core/services/custom_dio.dart';
@@ -18,7 +19,6 @@ mixin DependencyInjection {
     getIt.registerLazySingleton<AppPreferences>(
       () => AppPreferences(sharedPreferences),
     );
-
     getIt.registerLazySingleton<DioConnectivityRequestRetrier>(
       () => DioConnectivityRequestRetrier(
         dio: Dio(),
@@ -27,6 +27,14 @@ mixin DependencyInjection {
     );
     getIt.registerLazySingleton<Dio>(
       () => CustomDio(CacheInterceptor(getIt(), getIt())),
+    );
+
+    getIt.registerLazySingleton<Connectivity>(
+      () => Connectivity(),
+    );
+
+    getIt.registerLazySingleton<ConnectivityController>(
+      () => ConnectivityController(getIt()),
     );
 
     getIt.registerLazySingleton<IAppColors>(

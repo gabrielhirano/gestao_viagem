@@ -1,8 +1,5 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
+
 import 'package:gestao_viajem/feature/expense/model/expense_model.dart';
 
 class ExpenseRepository {
@@ -13,12 +10,11 @@ class ExpenseRepository {
 
   Future<List<ExpenseModel>> getExpenses() async {
     try {
-      // final response = await client.get("/posts");
-      final string = await rootBundle.loadString('assets/expenses_mock.json');
+      final response = await client.get("/expense");
 
-      final response = jsonDecode(string);
+      final dataList = response.data;
 
-      return (response as List<dynamic>)
+      return (dataList as List<dynamic>)
           .map((e) => ExpenseModel.fromMap(e))
           .toList();
     } catch (e) {
