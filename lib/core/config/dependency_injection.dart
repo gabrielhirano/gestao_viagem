@@ -6,6 +6,8 @@ import 'package:gestao_viajem/core/services/interceptor/cache_interceptor.dart';
 import 'package:gestao_viajem/core/services/custom_dio.dart';
 import 'package:gestao_viajem/core/services/interceptor/dio_connectivity_request_retrier.dart';
 import 'package:gestao_viajem/core/theme/app_colors.dart';
+import 'package:gestao_viajem/core/util/app_navigator.dart';
+import 'package:gestao_viajem/feature/expense/shared/expense_injection.dart';
 import 'package:gestao_viajem/feature/home/shared/home_injection.dart';
 
 import 'package:get_it/get_it.dart';
@@ -37,12 +39,17 @@ mixin DependencyInjection {
       () => ConnectivityController(getIt()),
     );
 
+    getIt.registerLazySingleton<AppNavigator>(
+      () => AppNavigator(),
+    );
+
     getIt.registerLazySingleton<IAppColors>(
       () => AppColors(),
     );
 
     //! Features
     Future.wait([
+      ExpenseInjection.inject(getIt),
       HomeInjection.inject(getIt),
     ]);
   }

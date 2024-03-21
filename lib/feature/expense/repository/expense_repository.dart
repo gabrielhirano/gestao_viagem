@@ -4,9 +4,7 @@ import 'package:gestao_viajem/feature/expense/model/expense_model.dart';
 
 class ExpenseRepository {
   final Dio client;
-  ExpenseRepository({
-    required this.client,
-  });
+  ExpenseRepository({required this.client});
 
   Future<List<ExpenseModel>> getExpenses() async {
     try {

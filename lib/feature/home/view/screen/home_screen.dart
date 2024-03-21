@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:gestao_viajem/core/config/dependency_injection.dart';
 import 'package:gestao_viajem/core/controller/connectivity_controller.dart';
-import 'package:gestao_viajem/core/helpers/app_state.dart';
+import 'package:gestao_viajem/core/util/app_state.dart';
 import 'package:gestao_viajem/core/layout/components/app_text.dart';
 import 'package:gestao_viajem/core/layout/foundation/app_shapes.dart';
 import 'package:gestao_viajem/core/theme/theme_global.dart';
-import 'package:gestao_viajem/core/util/extension/num_extension.dart';
-import 'package:gestao_viajem/core/util/extension/string_extension.dart';
+import 'package:gestao_viajem/core/helpers/extension/num_extension.dart';
+
 import 'package:gestao_viajem/core/view/loading_screen.dart';
 import 'package:gestao_viajem/core/view/widget/offline_connection_widget.dart';
+import 'package:gestao_viajem/feature/expense/controller/expense_controller.dart';
 import 'package:gestao_viajem/feature/expense/model/expense_model.dart';
 import 'package:gestao_viajem/feature/expense/view/widget/expense_card_widget.dart';
 
-import 'package:gestao_viajem/feature/home/controller/home_controller.dart';
 import 'package:gestao_viajem/feature/home/view/widget/acess_card_report_widget.dart';
 import 'package:gestao_viajem/feature/home/view/widget/acess_card_travel_widget.dart';
 import 'package:gestao_viajem/feature/home/view/widget/acess_card_wallet_widget.dart';
@@ -28,15 +28,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final HomeController controller;
+  late final ExpenseController controller;
   late final ConnectivityController connectivityController;
 
   @override
   void initState() {
-    controller = getIt<HomeController>();
+    controller = getIt<ExpenseController>();
     connectivityController = getIt<ConnectivityController>();
 
     controller.getExpenses();
+
     super.initState();
   }
 
