@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 
 abstract class IAppColors {
   // Brands - Primary
-  final colorBrandPrimaryBlue = const Color(0xFF187BFF);
+  final colorBrandPrimaryBlue = const Color(0xFF2a9efb);
   final colorBrandPrimaryBlueLight = const Color(0xFF5AB7F5);
 
+  final colorBrandSecondaryGreen = const Color(0xFF26a69a);
+
+  // Background
+  final colorBackgroundWhite = const Color(0xFFf2f2f2);
+
   // Feedback
-  final colorFeedbackPositive = const Color(0xFF48A700);
-  final colorFeedbackError = const Color(0xFFFC5B5B);
-  final colorFeedbackAlert = const Color(0xFFFFBF99);
+  final colorFeedbackPositive = const Color(0xFF21ba45);
+  final colorFeedbackNegative = const Color(0xFFc10015);
+  final colorFeedbackInfo = const Color(0xFF31ccec);
+  final colorFeedbackWarning = const Color(0xFFf2c037);
 
   final colorTextBlack = const Color(0xFF424242);
   final colorTextBlackLight = const Color(0xFF8E8E8E);
