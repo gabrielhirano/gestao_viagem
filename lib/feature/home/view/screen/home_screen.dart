@@ -28,24 +28,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: appColors.white,
-      appBar: AppBar(
-        title: const AppText(
-          text: 'Onfly',
-          textStyle: AppTextStyle.headerH4,
-        ),
-      ),
-      body: Observer(builder: (_) {
-        return switch (controller.state.getState) {
-          AppState.none => const CircularProgressIndicator(),
-          AppState.loading => const CircularProgressIndicator(),
-          AppState.empty => const Center(child: Text('Nenhum dado encontrado')),
-          AppState.success => _sucessState(controller.state.getData ?? []),
-          AppState.error => const Center(child: Text('Tela de erro')),
-        };
-      }),
-    );
+    return Observer(builder: (_) {
+      return switch (controller.state.getState) {
+        AppState.none => const CircularProgressIndicator(),
+        AppState.loading => const CircularProgressIndicator(),
+        AppState.empty => const Center(child: Text('Nenhum dado encontrado')),
+        AppState.success => _sucessState(controller.state.getData ?? []),
+        AppState.error => const Center(child: Text('Tela de erro')),
+      };
+    });
   }
 
   Widget _sucessState(List<PostModel> posts) {

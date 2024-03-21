@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:gestao_viajem/core/layout/components/app_text.dart';
 import 'package:gestao_viajem/core/layout/foundation/app_shapes.dart';
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Container(
       height: 40,
       decoration: AppShapes.decoration(
-        color: appColors.blue,
+        color: appColors.colorBrandPrimaryBlue,
         radius: RadiusSize.circle,
       ),
       child: Center(
@@ -106,13 +106,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-    // return ButtonApp(
-    //   height: 40,
-    //   width: 120,
-    //   color: appColors.green,
-    //   onTap: _onLoginButtonPressed,
-    //   content: Text('Entrar', style: TextStyle(color: appColors.white)),
-    // );
   }
 
   void _onLoginButtonPressed() async {
