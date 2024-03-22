@@ -25,6 +25,10 @@ abstract class ExpenseControllerBase with Store {
     return repository.registerExpense(expense);
   }
 
+  Future updateExpense(ExpenseModel expense) async {
+    return repository.updateExpense(expense);
+  }
+
   @computed
   double get totalSpend =>
       state.getData?.fold<double>(

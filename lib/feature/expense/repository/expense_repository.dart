@@ -29,4 +29,17 @@ class ExpenseRepository {
       rethrow;
     }
   }
+
+  Future<dynamic> updateExpense(ExpenseModel expense) async {
+    try {
+      final response = await client.put(
+        "/expense/${expense.id}",
+        data: expense.toJson(),
+      );
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

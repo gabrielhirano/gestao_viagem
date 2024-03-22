@@ -8,8 +8,10 @@ import 'package:gestao_viajem/core/util/global.dart';
 import 'package:gestao_viajem/feature/expense/model/expense_model.dart';
 
 class ExpenseCategoryDropDownWidget extends StatefulWidget {
+  final String? initialCategory;
   final void Function(ExpenseCategory? category) onSelect;
-  const ExpenseCategoryDropDownWidget({super.key, required this.onSelect});
+  const ExpenseCategoryDropDownWidget(
+      {super.key, required this.onSelect, required this.initialCategory});
 
   @override
   State<ExpenseCategoryDropDownWidget> createState() =>
@@ -36,13 +38,18 @@ class _ExpenseCategoryDropDownWidgetState
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             AppText(
-              text: (_selectedCategory?.name ?? 'Categoria').capitalize,
-              textStyle: _selectedCategory != null
-                  ? AppTextStyle.paragraphLargeBold
-                  : AppTextStyle.paragraphLarge,
-              textColor: _selectedCategory != null
-                  ? appColors.colorBrandPrimaryBlue
-                  : appColors.colorTextBlack.withOpacity(0.9),
+              text: (_selectedCategory?.name ??
+                      widget.initialCategory ??
+                      'Categoria')
+                  .capitalize,
+              textStyle:
+                  (_selectedCategory != null || widget.initialCategory != null)
+                      ? AppTextStyle.paragraphLargeBold
+                      : AppTextStyle.paragraphLarge,
+              textColor:
+                  (_selectedCategory != null || widget.initialCategory != null)
+                      ? appColors.colorBrandPrimaryBlue
+                      : appColors.colorTextBlack.withOpacity(0.9),
             ),
             Icon(
               Icons.keyboard_arrow_down_rounded,

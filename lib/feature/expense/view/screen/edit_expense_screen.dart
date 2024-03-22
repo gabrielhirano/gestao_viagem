@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:gestao_viajem/core/components/large_button_app.dart';
@@ -15,15 +13,21 @@ import 'package:gestao_viajem/feature/expense/view/widget/text_field/expense_nam
 import 'package:gestao_viajem/feature/expense/view/widget/text_field/expense_value_text_field_widget.dart';
 import 'package:intl/intl.dart';
 
-class ExpenseScreen extends StatefulWidget {
+class EditExpenseScreen extends StatefulWidget {
   final ExpenseController expenseController;
-  const ExpenseScreen({super.key, required this.expenseController});
+  final ExpenseModel expense;
+
+  const EditExpenseScreen({
+    super.key,
+    required this.expenseController,
+    required this.expense,
+  });
 
   @override
-  State<ExpenseScreen> createState() => _ExpenseScreenState();
+  State<EditExpenseScreen> createState() => _EditExpenseScreenState();
 }
 
-class _ExpenseScreenState extends State<ExpenseScreen> {
+class _EditExpenseScreenState extends State<EditExpenseScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final nameTextController = TextEditingController();
@@ -36,13 +40,13 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
   ExpenseCategory? categoryController;
 
   @override
-  void dispose() {
-    nameTextController.dispose();
-    valueTextController.dispose();
-    dateTextController.dispose();
-    commentTextController.dispose();
-
-    super.dispose();
+  void initState() {
+    nameTextController.text = widget.expense.name;
+    valueTextController.text = widget.expense.value.toString();
+    dateTextController.text = widget.expense.dateFormated;
+    commentTextController.text = widget.expense.comment ?? '';
+    categoryController = widget.expense.category;
+    super.initState();
   }
 
   @override
@@ -50,7 +54,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
     return Scaffold(
       appBar: AppBar(
         title: AppText(
-          text: 'Nova despesa',
+          text: 'Editar despesa  -  ${widget.expense.id}',
           textStyle: AppTextStyle.paragraphLargeBold,
           textColor: appColors.colorTextBlack,
         ),
@@ -84,7 +88,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
               const SliverToBoxAdapter(child: SizedBox(height: 10)),
               SliverToBoxAdapter(
                 child: ExpenseCategoryDropDownWidget(
-                    initialCategory: categoryController?.name ?? 'Categoria',
+                    initialCategory: categoryController?.name,
                     onSelect: (category) => categoryController = category),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 10)),
@@ -103,8 +107,8 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
               SliverToBoxAdapter(
                 child: LargeButtonApp(
                   color: appColors.orange,
-                  text: 'Salvar',
-                  onPressed: onSave,
+                  text: 'Editar',
+                  onPressed: onEdit,
                 ),
               ),
             ],
@@ -114,10 +118,11 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
     );
   }
 
-  void onSave() {
+  void onEdit() {
     if (formKey.currentState?.validate() ?? false) {
       // passar isso para uma factory e tratar as possiveis exceções
       final newExpense = ExpenseModel(
+        id: widget.expense.id,
         name: nameTextController.text,
         category: categoryController ?? ExpenseCategory.others,
         value: double.parse(valueTextController.text.replaceAll(',', '.')),
@@ -125,13 +130,12 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
         comment: commentTextController.text,
       );
 
-      widget.expenseController.registerExpense(newExpense).then((value) {
-        widget.expenseController
-            .getExpenses(); // em caso de sucesso já atualizo a minha tela de expenses
-        // Mostrar alguma mensagem de sucesso um Toast provavelmente
-      }).catchError((error) => 'error');
+      widget.expenseController.updateExpense(newExpense).then((value) {
+        // em caso de sucesso já atualizo a minha tela de expenses
+        widget.expenseController.getExpenses();
+        // Mostrar alguma mensagem de sucesso! um Toast provavelmente.
+      }).catchError((error) => 'error'); // Mostrar Alerta de erro se houver
 
-      // Mostrar Alerta de erro se houver
       appNavigator.popNavigate();
     }
   }

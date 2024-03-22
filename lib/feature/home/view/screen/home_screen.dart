@@ -16,6 +16,7 @@ import 'package:gestao_viajem/core/view/loading_screen.dart';
 import 'package:gestao_viajem/core/view/widget/offline_connection_widget.dart';
 import 'package:gestao_viajem/feature/expense/controller/expense_controller.dart';
 import 'package:gestao_viajem/feature/expense/model/expense_model.dart';
+import 'package:gestao_viajem/feature/expense/view/screen/edit_expense_screen.dart';
 import 'package:gestao_viajem/feature/expense/view/screen/expense_screen.dart';
 import 'package:gestao_viajem/feature/expense/view/widget/expense_card_widget.dart';
 
@@ -173,7 +174,15 @@ class _HomeScreenState extends State<HomeScreen> {
           const SliverToBoxAdapter(child: SizedBox(height: 10)),
           SliverList(
               delegate: SliverChildBuilderDelegate(
-            (_, index) => ExpenseCardWidget(expense: expenses[index]),
+            (_, index) {
+              final expense = expenses[index];
+              return InkWell(
+                  onTap: () => appNavigator.navigate(EditExpenseScreen(
+                        expense: expense,
+                        expenseController: expenseController,
+                      )),
+                  child: ExpenseCardWidget(expense: expense));
+            },
             childCount: expenses.length,
           )),
           const SliverToBoxAdapter(child: SizedBox(height: 140)),

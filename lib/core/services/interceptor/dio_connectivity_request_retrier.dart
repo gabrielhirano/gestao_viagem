@@ -22,6 +22,7 @@ class DioConnectivityRequestRetrier {
 
           final response = await dio.request(
               requestOptions.baseUrl + requestOptions.path,
+              data: requestOptions.data,
               options: Options(method: requestOptions.method));
 
           responseCompleter.complete(response);
