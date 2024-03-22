@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:gestao_viajem/core/components/large_button_app.dart';
 
 import 'package:gestao_viajem/core/config/dependency_injection.dart';
 import 'package:gestao_viajem/core/controller/connectivity_controller.dart';
@@ -30,15 +31,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final ExpenseController controller;
+  late final ExpenseController expenseController;
   late final ConnectivityController connectivityController;
 
   @override
   void initState() {
-    controller = getIt<ExpenseController>();
+    expenseController = getIt<ExpenseController>();
     connectivityController = getIt<ConnectivityController>();
 
-    controller.getExpenses();
+    expenseController.getExpenses();
 
     super.initState();
   }
@@ -74,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: Container(
-        height: 110,
+        height: 112,
         width: MediaQuery.of(context).size.width - 30,
         decoration: AppShapes.decoration(
           radius: RadiusSize.medium,
@@ -96,12 +97,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     AppText(
                       text: 'Total gasto: ',
                       textStyle: AppTextStyle.paragraphExtrLargeBold,
-                      textColor: appColors.colorTextBlackLight,
+                      textColor: appColors.colorTextBlack.withOpacity(0.9),
                     ),
                     const Spacer(),
                     Observer(builder: (_) {
                       return AppText(
-                        text: controller.totalSpend.realCurrencyNumber,
+                        text: expenseController.totalSpend.realCurrencyNumber,
                         textStyle: AppTextStyle.headerH4,
                         textColor: appColors.colorTextBlack.withOpacity(0.9),
                       );
@@ -111,34 +112,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              InkWell(
-                onTap: () {
-                  appNavigator.navigate(ExpenseScreen());
+              LargeButtonApp(
+                text: 'Adicionar despesa',
+                color: appColors.orange,
+                onPressed: () {
+                  appNavigator.navigate(
+                    ExpenseScreen(expenseController: expenseController),
+                  );
                 },
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: AppShapes.decoration(
-                      radius: RadiusSize.medium, color: appColors.orange),
-                  child: Center(
-                    child: AppText(
-                      text: 'Adicionar despesa',
-                      textStyle: AppTextStyle.paragraphExtrLargeBold,
-                      textColor: appColors.white,
-                    ),
-                  ),
-                ),
-              ),
+              )
             ],
           ),
         ),
       ),
       body: Observer(builder: (_) {
-        return switch (controller.state.getState) {
+        return switch (expenseController.state.getState) {
           AppState.none => const LoadingScreen(),
           AppState.loading => const LoadingScreen(),
           AppState.empty => const Center(child: Text('Nenhum dado encontrado')),
-          AppState.success => _sucessState(controller.state.getData ?? []),
+          AppState.success =>
+            _sucessState(expenseController.state.getData ?? []),
           AppState.error => const Center(child: Text('Tela de erro')),
         };
       }),
@@ -192,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //   itemBuilder: (_, index) {
     //     final post = expenses[index];
     //     return InkWell(
-    //       onTap: controller.postPost,
+    //       onTap: expenseController.postPost,
     //       child: Container(
     //         height: 100,
     //         width: double.infinity,

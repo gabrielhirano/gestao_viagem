@@ -54,7 +54,7 @@ mixin AppTypography {
   static const typographyParagraphLarge = TextStyle(
     fontSize: 16,
     fontFamily: fontFamily,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w400,
   );
 
   static const typographyParagraphLargeBold = TextStyle(

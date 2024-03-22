@@ -28,8 +28,6 @@ class _OnflyAppState extends State<OnflyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: _navigatorKey,
-      // home: LoadingScreen(),
-      // home: MainScreen(),
       home: const HomeScreen(),
     );
   }

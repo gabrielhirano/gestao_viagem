@@ -31,7 +31,7 @@ class ExpenseModel extends Equatable {
   final String? comment;
 
   const ExpenseModel({
-    required this.id,
+    this.id = '0',
     required this.name,
     required this.category,
     required this.value,

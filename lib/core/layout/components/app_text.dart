@@ -38,7 +38,7 @@ enum AppTextStyle {
   paragraphExtrLarge(AppTypography.typographyParagrapExtraLarge),
 
   /// fontSize: 20 / fontWeight: w600
-  paragraphExtrLargeBold(AppTypography.typographyParagraphLargeBold);
+  paragraphExtrLargeBold(AppTypography.typographyParagrapExtraLargeBold);
 
   const AppTextStyle(this.appTypographyStyle);
   final TextStyle appTypographyStyle;

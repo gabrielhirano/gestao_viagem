@@ -29,7 +29,7 @@ abstract class IAppColors {
 
   final transparent = Colors.transparent;
 
-  final greyLight = const Color(0xFF4A4A4A).withOpacity(0.3);
+  final greyLight = const Color(0xFF4A4A4A).withOpacity(0.2);
 
   // Generics - Dark
   final greyDark = const Color(0xFF4A4A4A);

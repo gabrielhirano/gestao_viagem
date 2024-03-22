@@ -15,9 +15,7 @@ class _EmailTextFieldWidgetState extends State<EmailTextFieldWidget> {
   Widget build(BuildContext context) {
     return InputFormApp(
       controller: widget.controller,
-      label: 'Login',
-      placeholder: 'Seu usuário, telefone, ou e-mail',
-      prefixIcon: const Icon(Icons.person_outline_sharp, size: 24),
+      placeholder: 'Nome',
       validator: _validateEmail,
     );
   }

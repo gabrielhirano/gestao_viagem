@@ -21,10 +21,9 @@ abstract class ExpenseControllerBase with Store {
     await state.execute(() => repository.getExpenses());
   }
 
-  // Future<void> postPost() async {
-  //   // await state.execute(() => repository.postPost());
-  //   await repository.postPost();
-  // }
+  Future registerExpense(ExpenseModel expense) async {
+    return repository.registerExpense(expense);
+  }
 
   @computed
   double get totalSpend =>

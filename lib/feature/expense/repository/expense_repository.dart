@@ -20,19 +20,13 @@ class ExpenseRepository {
     }
   }
 
-  // Future<dynamic> postPost() async {
-  //   try {
-  //     final response = await client.post(
-  //       "/posts",
-  //       data: jsonEncode({
-  //         'title': 'foo',
-  //         'body': 'bar',
-  //         'userId': 1,
-  //       }),
-  //     );
-  //     return response;
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
+  Future<dynamic> registerExpense(ExpenseModel expense) async {
+    try {
+      final response = await client.post("/expense", data: expense.toJson());
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
