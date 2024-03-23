@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:gestao_viajem/feature/authentication/model/password_model.dart';
+import 'package:gestao_viajem_onfly/feature/authentication/model/password_model.dart';
 
 class PasswordTextFieldWidget extends StatefulWidget {
   final TextEditingController controller;

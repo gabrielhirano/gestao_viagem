@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gestao_viajem/core/components/input_form_app.dart';
-import 'package:gestao_viajem/feature/authentication/model/email_model.dart';
+import 'package:gestao_viajem_onfly/core/components/input_form_app.dart';
+import 'package:gestao_viajem_onfly/feature/authentication/model/email_model.dart';
 
 class EmailTextFieldWidget extends StatefulWidget {
   final TextEditingController controller;

@@ -1,14 +1,16 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
-import 'package:gestao_viajem/core/controller/connectivity_controller.dart';
-import 'package:gestao_viajem/core/services/app_preferences.dart';
-import 'package:gestao_viajem/core/services/interceptor/cache_interceptor.dart';
-import 'package:gestao_viajem/core/services/custom_dio.dart';
-import 'package:gestao_viajem/core/services/interceptor/dio_connectivity_request_retrier.dart';
-import 'package:gestao_viajem/core/theme/app_colors.dart';
-import 'package:gestao_viajem/core/util/app_navigator.dart';
-import 'package:gestao_viajem/feature/expense/shared/expense_injection.dart';
-import 'package:gestao_viajem/feature/home/shared/home_injection.dart';
+import 'package:gestao_viajem_onfly/core/controller/connectivity_controller.dart';
+import 'package:gestao_viajem_onfly/core/services/app_preferences.dart';
+import 'package:gestao_viajem_onfly/core/services/interceptor/cache_interceptor.dart';
+import 'package:gestao_viajem_onfly/core/services/custom_dio.dart';
+import 'package:gestao_viajem_onfly/core/services/interceptor/dio_connectivity_request_retrier.dart';
+import 'package:gestao_viajem_onfly/core/services/work_manager_dispacher.dart';
+
+import 'package:gestao_viajem_onfly/core/theme/app_colors.dart';
+import 'package:gestao_viajem_onfly/core/util/app_navigator.dart';
+import 'package:gestao_viajem_onfly/feature/expense/shared/expense_injection.dart';
+import 'package:gestao_viajem_onfly/feature/home/shared/home_injection.dart';
 
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,11 +26,11 @@ mixin DependencyInjection {
     getIt.registerLazySingleton<DioConnectivityRequestRetrier>(
       () => DioConnectivityRequestRetrier(
         dio: Dio(),
-        connectivity: Connectivity(),
       ),
     );
+
     getIt.registerLazySingleton<Dio>(
-      () => CustomDio(CacheInterceptor(getIt(), getIt())),
+      () => CustomDio(CacheInterceptor(getIt())),
     );
 
     getIt.registerLazySingleton<Connectivity>(
@@ -36,7 +38,7 @@ mixin DependencyInjection {
     );
 
     getIt.registerLazySingleton<ConnectivityController>(
-      () => ConnectivityController(getIt()),
+      () => ConnectivityController(getIt(), getIt(), getIt()),
     );
 
     getIt.registerLazySingleton<AppNavigator>(
@@ -46,6 +48,11 @@ mixin DependencyInjection {
     getIt.registerLazySingleton<IAppColors>(
       () => AppColors(),
     );
+
+    // WorkManagerDispacherServicer.initialize(
+    //   getIt<AppPreferences>(),
+    //   getIt<DioConnectivityRequestRetrier>(),
+    // );
 
     //! Features
     Future.wait([

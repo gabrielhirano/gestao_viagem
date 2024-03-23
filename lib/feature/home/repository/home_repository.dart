@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:gestao_viajem/feature/home/model/post_model.dart';
+import 'package:gestao_viajem_onfly/feature/home/model/post_model.dart';
 
 class HomeRepository {
   final Dio client;

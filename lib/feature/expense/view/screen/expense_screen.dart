@@ -2,17 +2,17 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:gestao_viajem/core/components/large_button_app.dart';
-import 'package:gestao_viajem/core/layout/components/app_text.dart';
-import 'package:gestao_viajem/core/theme/theme_global.dart';
-import 'package:gestao_viajem/core/util/global.dart';
-import 'package:gestao_viajem/feature/expense/controller/expense_controller.dart';
-import 'package:gestao_viajem/feature/expense/model/expense_model.dart';
-import 'package:gestao_viajem/feature/expense/view/widget/drop_down/expense_category_drop_down_widget.dart';
-import 'package:gestao_viajem/feature/expense/view/widget/text_field/expense_comment_text_field_widget.dart';
-import 'package:gestao_viajem/feature/expense/view/widget/text_field/expense_date_text_field_widget.dart';
-import 'package:gestao_viajem/feature/expense/view/widget/text_field/expense_name_text_field_widget.dart';
-import 'package:gestao_viajem/feature/expense/view/widget/text_field/expense_value_text_field_widget.dart';
+import 'package:gestao_viajem_onfly/core/components/large_button_app.dart';
+import 'package:gestao_viajem_onfly/core/layout/components/app_text.dart';
+import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';
+import 'package:gestao_viajem_onfly/core/util/global.dart';
+import 'package:gestao_viajem_onfly/feature/expense/controller/expense_controller.dart';
+import 'package:gestao_viajem_onfly/feature/expense/model/expense_model.dart';
+import 'package:gestao_viajem_onfly/feature/expense/view/widget/drop_down/expense_category_drop_down_widget.dart';
+import 'package:gestao_viajem_onfly/feature/expense/view/widget/text_field/expense_comment_text_field_widget.dart';
+import 'package:gestao_viajem_onfly/feature/expense/view/widget/text_field/expense_date_text_field_widget.dart';
+import 'package:gestao_viajem_onfly/feature/expense/view/widget/text_field/expense_name_text_field_widget.dart';
+import 'package:gestao_viajem_onfly/feature/expense/view/widget/text_field/expense_value_text_field_widget.dart';
 import 'package:intl/intl.dart';
 
 class ExpenseScreen extends StatefulWidget {

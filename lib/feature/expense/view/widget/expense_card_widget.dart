@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gestao_viajem/core/layout/components/app_text.dart';
-import 'package:gestao_viajem/core/layout/foundation/app_shapes.dart';
-import 'package:gestao_viajem/core/theme/theme_global.dart';
-import 'package:gestao_viajem/core/helpers/extension/num_extension.dart';
-import 'package:gestao_viajem/core/helpers/extension/string_extension.dart';
-import 'package:gestao_viajem/feature/expense/model/expense_model.dart';
+import 'package:gestao_viajem_onfly/core/layout/components/app_text.dart';
+import 'package:gestao_viajem_onfly/core/layout/foundation/app_shapes.dart';
+import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';
+import 'package:gestao_viajem_onfly/core/helpers/extension/num_extension.dart';
+import 'package:gestao_viajem_onfly/core/helpers/extension/string_extension.dart';
+import 'package:gestao_viajem_onfly/feature/expense/model/expense_model.dart';
 
 class ExpenseCardWidget extends StatelessWidget {
   final ExpenseModel expense;

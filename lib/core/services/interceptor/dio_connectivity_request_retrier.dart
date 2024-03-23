@@ -1,35 +1,17 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:connectivity/connectivity.dart';
+
+import 'package:gestao_viajem_onfly/core/services/custom_request_options.dart';
 
 class DioConnectivityRequestRetrier {
   final Dio dio;
-  final Connectivity connectivity;
-  DioConnectivityRequestRetrier({
-    required this.dio,
-    required this.connectivity,
-  });
 
-  Future<Response> scheduleRequestRetry(RequestOptions requestOptions) async {
-    late StreamSubscription streamSubscription;
-    final responseCompleter = Completer<Response>();
+  DioConnectivityRequestRetrier({required this.dio});
 
-    streamSubscription = connectivity.onConnectivityChanged.listen(
-      (connectivityResult) async {
-        if (connectivityResult != ConnectivityResult.none) {
-          streamSubscription.cancel();
-
-          final response = await dio.request(
-              requestOptions.baseUrl + requestOptions.path,
-              data: requestOptions.data,
-              options: Options(method: requestOptions.method));
-
-          responseCompleter.complete(response);
-        }
-      },
-    );
-
-    return responseCompleter.future;
+  Future<Response> requestRetry(CustomRequestOptions requestOptions) async {
+    return dio.request(requestOptions.baseUrl + requestOptions.path,
+        data: requestOptions.data,
+        options: Options(method: requestOptions.method));
   }
 }

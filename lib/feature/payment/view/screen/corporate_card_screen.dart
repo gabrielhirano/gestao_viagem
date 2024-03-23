@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gestao_viajem/feature/payment/view/widget/credit_card_widget.dart';
+import 'package:gestao_viajem_onfly/feature/payment/view/widget/credit_card_widget.dart';
 
 class CorporateCardScreen extends StatefulWidget {
   const CorporateCardScreen({super.key});

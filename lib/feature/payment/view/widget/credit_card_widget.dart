@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gestao_viajem/core/layout/foundation/app_shapes.dart';
+import 'package:gestao_viajem_onfly/core/layout/foundation/app_shapes.dart';
 
 class CreditCardWidget extends StatelessWidget {
   const CreditCardWidget({super.key});

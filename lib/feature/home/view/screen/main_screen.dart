@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gestao_viajem/core/layout/components/app_text.dart';
-import 'package:gestao_viajem/core/layout/foundation/app_shapes.dart';
-import 'package:gestao_viajem/core/theme/theme_global.dart';
-import 'package:gestao_viajem/core/view/loading_screen.dart';
-import 'package:gestao_viajem/feature/home/view/screen/home_screen.dart';
-import 'package:gestao_viajem/feature/payment/view/screen/corporate_card_screen.dart';
+import 'package:gestao_viajem_onfly/core/layout/components/app_text.dart';
+import 'package:gestao_viajem_onfly/core/layout/foundation/app_shapes.dart';
+import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';
+import 'package:gestao_viajem_onfly/core/view/loading_screen.dart';
+import 'package:gestao_viajem_onfly/feature/home/view/screen/home_screen.dart';
+import 'package:gestao_viajem_onfly/feature/payment/view/screen/corporate_card_screen.dart';
 
-import 'package:gestao_viajem/feature/ticket/view/screen/tickets_screen.dart';
+import 'package:gestao_viajem_onfly/feature/ticket/view/screen/tickets_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

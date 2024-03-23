@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import 'package:gestao_viajem/feature/expense/model/expense_model.dart';
+import 'package:gestao_viajem_onfly/feature/expense/model/expense_model.dart';
 
 class ExpenseRepository {
   final Dio client;

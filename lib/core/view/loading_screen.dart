@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gestao_viajem/core/theme/theme_global.dart';
+import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});

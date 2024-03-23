@@ -1,14 +1,16 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:gestao_viajem/core/services/interceptor/dio_connectivity_request_retrier.dart';
+import 'package:gestao_viajem_onfly/core/services/custom_request_options.dart';
+import 'package:gestao_viajem_onfly/core/services/work_manager_dispacher.dart';
+import 'package:workmanager/workmanager.dart';
+
 import '../app_preferences.dart';
 
 class CacheInterceptor implements InterceptorsWrapper {
   final AppPreferences appPreferences;
-  final DioConnectivityRequestRetrier requestRetrier;
 
-  CacheInterceptor(this.appPreferences, this.requestRetrier);
+  CacheInterceptor(this.appPreferences);
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -36,7 +38,7 @@ class CacheInterceptor implements InterceptorsWrapper {
         return await onResolveCache(err, handler);
       }
 
-      await onResolveScheduleRequestRetry(err, handler);
+      onSaveRequestOnCache(err.requestOptions);
     }
   }
 
@@ -55,12 +57,21 @@ class CacheInterceptor implements InterceptorsWrapper {
     }
   }
 
-  Future<void> onResolveScheduleRequestRetry(
-    DioException err,
-    ErrorInterceptorHandler handler,
-  ) async {
-    final response =
-        await requestRetrier.scheduleRequestRetry(err.requestOptions);
-    handler.resolve(response);
+  Future<void> onSaveRequestOnCache(RequestOptions requestOptions) async {
+    final String key = requestOptions.method;
+
+    final customRequestOptions = CustomRequestOptions(
+      baseUrl: requestOptions.baseUrl,
+      method: requestOptions.method,
+      path: requestOptions.path,
+      data: requestOptions.data,
+    );
+
+    var listRequest = await appPreferences.getList(key);
+    listRequest.add(customRequestOptions.toJson());
+
+    await appPreferences.setList(key, listRequest);
+
+    await WorkManagerDispacherServicer.registerPendingRequest();
   }
 }

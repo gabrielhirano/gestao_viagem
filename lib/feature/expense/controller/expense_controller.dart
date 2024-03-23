@@ -1,9 +1,9 @@
-import 'package:gestao_viajem/feature/expense/model/expense_model.dart';
-import 'package:gestao_viajem/feature/expense/repository/expense_repository.dart';
+import 'package:gestao_viajem_onfly/feature/expense/model/expense_model.dart';
+import 'package:gestao_viajem_onfly/feature/expense/repository/expense_repository.dart';
 
 import 'package:mobx/mobx.dart';
 
-import 'package:gestao_viajem/core/util/base_state.dart';
+import 'package:gestao_viajem_onfly/core/util/base_state.dart';
 
 part 'expense_controller.g.dart';
 

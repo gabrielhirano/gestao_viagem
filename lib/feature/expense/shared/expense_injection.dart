@@ -1,5 +1,5 @@
-import 'package:gestao_viajem/feature/expense/controller/expense_controller.dart';
-import 'package:gestao_viajem/feature/expense/repository/expense_repository.dart';
+import 'package:gestao_viajem_onfly/feature/expense/controller/expense_controller.dart';
+import 'package:gestao_viajem_onfly/feature/expense/repository/expense_repository.dart';
 
 import 'package:get_it/get_it.dart';
 

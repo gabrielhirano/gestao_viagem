@@ -1,4 +1,4 @@
-import 'package:gestao_viajem/core/helpers/validator/input_validator.dart';
+import 'package:gestao_viajem_onfly/core/helpers/validator/input_validator.dart';
 
 class EmailModel with InputValidator {
   final String email;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gestao_viajem/core/theme/theme_global.dart';
+import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';
 
 import '../foundation/app_typography.dart';
 
