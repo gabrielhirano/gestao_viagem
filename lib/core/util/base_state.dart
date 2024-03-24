@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:gestao_viajem_onfly/core/services/error/app_failure.dart';
 import 'package:mobx/mobx.dart';
 import 'app_state.dart';
 
@@ -14,7 +14,7 @@ abstract class BaseStateBase<T> with Store {
   T? _data;
 
   @observable
-  DioException? _error;
+  Failure _error = Failure('Nenhuma falha encontrada!');
 
   @computed
   AppState get getState => _state;
@@ -23,7 +23,7 @@ abstract class BaseStateBase<T> with Store {
   T? get getData => _data;
 
   @computed
-  DioException? get getError => _error;
+  Failure get getError => _error;
 
   @action
   Future<void> execute(Future<T> Function() value) async {
@@ -35,7 +35,7 @@ abstract class BaseStateBase<T> with Store {
         _state = AppState.success;
         _data = response;
       }
-    }).catchError((error) {
+    }).onError<Failure>((error, stack) {
       _state = AppState.error;
       _error = error;
     });

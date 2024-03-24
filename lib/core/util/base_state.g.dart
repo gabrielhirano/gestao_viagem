@@ -22,11 +22,11 @@ mixin _$BaseState<T> on BaseStateBase<T>, Store {
   T? get getData => (_$getDataComputed ??=
           Computed<T?>(() => super.getData, name: 'BaseStateBase.getData'))
       .value;
-  Computed<DioException?>? _$getErrorComputed;
+  Computed<Failure>? _$getErrorComputed;
 
   @override
-  DioException? get getError =>
-      (_$getErrorComputed ??= Computed<DioException?>(() => super.getError,
+  Failure get getError =>
+      (_$getErrorComputed ??= Computed<Failure>(() => super.getError,
               name: 'BaseStateBase.getError'))
           .value;
 
@@ -65,13 +65,13 @@ mixin _$BaseState<T> on BaseStateBase<T>, Store {
       Atom(name: 'BaseStateBase._error', context: context);
 
   @override
-  DioException? get _error {
+  Failure get _error {
     _$_errorAtom.reportRead();
     return super._error;
   }
 
   @override
-  set _error(DioException? value) {
+  set _error(Failure value) {
     _$_errorAtom.reportWrite(value, super._error, () {
       super._error = value;
     });

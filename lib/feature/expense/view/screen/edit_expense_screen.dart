@@ -3,6 +3,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:gestao_viajem_onfly/core/components/large_button_app.dart';
 import 'package:gestao_viajem_onfly/core/layout/components/app_text.dart';
 import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';
+import 'package:gestao_viajem_onfly/core/util/app_state.dart';
 import 'package:gestao_viajem_onfly/core/util/global.dart';
 import 'package:gestao_viajem_onfly/feature/expense/controller/expense_controller.dart';
 import 'package:gestao_viajem_onfly/feature/expense/model/expense_model.dart';
@@ -37,6 +38,7 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
   );
   final dateTextController = MaskedTextController(mask: '00/00/0000');
   final commentTextController = TextEditingController();
+
   ExpenseCategory? categoryController;
 
   @override
@@ -118,25 +120,40 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
     );
   }
 
-  void onEdit() {
-    if (formKey.currentState?.validate() ?? false) {
-      // passar isso para uma factory e tratar as possiveis exceções
-      final newExpense = ExpenseModel(
-        id: widget.expense.id,
-        name: nameTextController.text,
-        category: categoryController ?? ExpenseCategory.others,
-        value: double.parse(valueTextController.text.replaceAll(',', '.')),
-        date: DateFormat('dd/MM/yyyy').parse(dateTextController.text),
-        comment: commentTextController.text,
-      );
+  void onEdit() async {
+    FocusScope.of(context).unfocus();
+    if (formKey.currentState?.validate() == false) return;
 
-      widget.expenseController.updateExpense(newExpense).then((value) {
-        // em caso de sucesso já atualizo a minha tela de expenses
-        widget.expenseController.getExpenses();
-        // Mostrar alguma mensagem de sucesso! um Toast provavelmente.
-      }).catchError((error) => 'error'); // Mostrar Alerta de erro se houver
+    final changedExpense = ExpenseModel.createExpenseFromForm(
+      id: widget.expense.id,
+      name: nameTextController.text,
+      category: categoryController,
+      value: valueTextController.text,
+      date: dateTextController.text,
+      comment: commentTextController.text,
+    );
 
-      appNavigator.popNavigate();
+    if (changedExpense == null) {
+      // tratar algum possivel erro de conversão de dados;
+      return;
     }
+
+    onUpdate(changedExpense);
+  }
+
+  void onUpdate(ExpenseModel expense) async {
+    await widget.expenseController.updateExpense(expense);
+
+    if (widget.expenseController.state.getState == AppState.success) {
+      widget.expenseController.getExpenses();
+    }
+
+    if (widget.expenseController.state.getState == AppState.error) {
+      // Aqui seria para tratar as mensagens de erro ou fluxo de erro;
+      final errorMessage = widget.expenseController.state.getError.message;
+      print(errorMessage);
+    }
+
+    appNavigator.popNavigate();
   }
 }

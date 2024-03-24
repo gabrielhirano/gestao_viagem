@@ -41,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
     connectivityController = getIt<ConnectivityController>();
 
     expenseController.getExpenses();
-
     super.initState();
   }
 

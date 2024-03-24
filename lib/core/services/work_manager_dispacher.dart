@@ -26,11 +26,11 @@ class WorkManagerDispacherServicer {
     //     'tempo de retry : ${DateTime.now().minute}: ${DateTime.now().second}');
     // dev.log(inputData?['data'] ?? 'sem input');
     dev.log('call dispatcher', name: 'dispatcher');
-    // Workmanager().cancelAll();
+
     if (taskName == 'hasPendingRequest') {
       dev.log('hasPendingRequest', name: 'dispatcher');
       await _resolveRequests();
-      // Workmanager().cancelByUniqueName('hasPendingRequest');
+
       return Future.value(true);
     }
     return Future.value(false);
@@ -92,6 +92,6 @@ class WorkManagerDispacherServicer {
 
   static Future _resolveRequestRetry(
       HttpMethods method, Future procedure, AppPreferences preferences) {
-    return procedure.whenComplete(() => preferences.setList(method.name, []));
+    return procedure.then((_) => preferences.setList(method.name, []));
   }
 }

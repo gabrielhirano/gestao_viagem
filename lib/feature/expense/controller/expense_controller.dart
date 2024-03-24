@@ -5,28 +5,23 @@ import 'package:mobx/mobx.dart';
 
 import 'package:gestao_viajem_onfly/core/util/base_state.dart';
 
-part 'expense_controller.g.dart';
-
-class ExpenseController = ExpenseControllerBase with _$ExpenseController;
-
-abstract class ExpenseControllerBase with Store {
-  final state = BaseState<List<ExpenseModel>>();
-
+class ExpenseController {
+  ExpenseController(this.repository);
   final ExpenseRepository repository;
 
-  ExpenseControllerBase(this.repository);
+  final state = BaseState<List<ExpenseModel>>();
+  final changedState = BaseState();
 
-  @action
   Future<void> getExpenses() async {
     await state.execute(() => repository.getExpenses());
   }
 
-  Future registerExpense(ExpenseModel expense) async {
-    return repository.registerExpense(expense);
+  Future<void> createExpense(ExpenseModel expense) async {
+    await changedState.execute(() => repository.registerExpense(expense));
   }
 
-  Future updateExpense(ExpenseModel expense) async {
-    return repository.updateExpense(expense);
+  Future<void> updateExpense(ExpenseModel expense) async {
+    await changedState.execute(() => repository.updateExpense(expense));
   }
 
   @computed

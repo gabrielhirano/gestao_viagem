@@ -31,7 +31,7 @@ class ExpenseModel extends Equatable {
   final String? comment;
 
   const ExpenseModel({
-    this.id = '0',
+    this.id = '-1',
     required this.name,
     required this.category,
     required this.value,
@@ -85,6 +85,11 @@ class ExpenseModel extends Equatable {
     };
   }
 
+  String toJson() => json.encode(toMap());
+
+  factory ExpenseModel.fromJson(String source) =>
+      ExpenseModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
   factory ExpenseModel.fromMap(Map<String, dynamic> map) {
     return ExpenseModel(
       id: map['id'].toString(),
@@ -95,9 +100,27 @@ class ExpenseModel extends Equatable {
       comment: map['comment'] != null ? map['comment'] as String : null,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory ExpenseModel.fromJson(String source) =>
-      ExpenseModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  static ExpenseModel? createExpenseFromForm({
+    required String name,
+    required String value,
+    required String date,
+    ExpenseCategory? category,
+    String id = '-1',
+    String comment = '',
+  }) {
+    try {
+      final parsedValue = double.parse(value.replaceAll(',', '.'));
+      final parsedDate = DateFormat('dd/MM/yyyy').parse(date);
+      return ExpenseModel(
+        id: id,
+        name: name,
+        category: category ?? ExpenseCategory.others,
+        value: parsedValue,
+        date: parsedDate,
+        comment: comment,
+      );
+    } on FormatException {
+      return null;
+    }
+  }
 }

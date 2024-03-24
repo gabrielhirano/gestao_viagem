@@ -2,6 +2,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:gestao_viajem_onfly/core/controller/connectivity_controller.dart';
 import 'package:gestao_viajem_onfly/core/services/app_preferences.dart';
+import 'package:gestao_viajem_onfly/core/services/cache_resolver.dart';
 import 'package:gestao_viajem_onfly/core/services/interceptor/cache_interceptor.dart';
 import 'package:gestao_viajem_onfly/core/services/custom_dio.dart';
 import 'package:gestao_viajem_onfly/core/services/interceptor/dio_connectivity_request_retrier.dart';
@@ -27,6 +28,10 @@ mixin DependencyInjection {
       () => DioConnectivityRequestRetrier(
         dio: Dio(),
       ),
+    );
+
+    getIt.registerLazySingleton<CacheResolver>(
+      () => CacheResolver(getIt()),
     );
 
     getIt.registerLazySingleton<Dio>(

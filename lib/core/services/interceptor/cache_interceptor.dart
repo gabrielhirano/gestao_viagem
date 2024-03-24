@@ -1,16 +1,11 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:gestao_viajem_onfly/core/services/custom_request_options.dart';
-import 'package:gestao_viajem_onfly/core/services/work_manager_dispacher.dart';
-import 'package:workmanager/workmanager.dart';
+import 'package:gestao_viajem_onfly/core/services/cache_resolver.dart';
 
-import '../app_preferences.dart';
+import 'package:gestao_viajem_onfly/core/services/error/app_exception.dart';
 
 class CacheInterceptor implements InterceptorsWrapper {
-  final AppPreferences appPreferences;
-
-  CacheInterceptor(this.appPreferences);
+  final CacheResolver cacheResolver;
+  CacheInterceptor(this.cacheResolver);
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -22,10 +17,7 @@ class CacheInterceptor implements InterceptorsWrapper {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     if (response.requestOptions.method == "GET") {
-      appPreferences.post(
-        response.requestOptions.path,
-        jsonEncode(response.data),
-      );
+      cacheResolver.saveResponseOnCache(response);
     }
 
     handler.resolve(response);
@@ -35,43 +27,16 @@ class CacheInterceptor implements InterceptorsWrapper {
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.type == DioExceptionType.connectionError) {
       if (err.requestOptions.method == 'GET') {
-        return await onResolveCache(err, handler);
+        await cacheResolver
+            .onResolveGet(err.requestOptions)
+            .then((response) => handler.resolve(response))
+            .onError((error, stackTrace) => handler.reject(CacheException()));
+        return;
       }
-
-      onSaveRequestOnCache(err.requestOptions);
+      await cacheResolver
+          .onResolveChanges(err.requestOptions)
+          .then((response) => handler.resolve(response))
+          .onError((error, stackTrace) => handler.reject(CacheException()));
     }
-  }
-
-  Future<void> onResolveCache(
-    DioException err,
-    ErrorInterceptorHandler handler,
-  ) async {
-    final path = err.requestOptions.path;
-    if (appPreferences.preferences.containsKey(path)) {
-      final json = await appPreferences.get(path);
-
-      if (json == null) return;
-
-      final data = jsonDecode(json);
-      handler.resolve(Response(requestOptions: err.requestOptions, data: data));
-    }
-  }
-
-  Future<void> onSaveRequestOnCache(RequestOptions requestOptions) async {
-    final String key = requestOptions.method;
-
-    final customRequestOptions = CustomRequestOptions(
-      baseUrl: requestOptions.baseUrl,
-      method: requestOptions.method,
-      path: requestOptions.path,
-      data: requestOptions.data,
-    );
-
-    var listRequest = await appPreferences.getList(key);
-    listRequest.add(customRequestOptions.toJson());
-
-    await appPreferences.setList(key, listRequest);
-
-    await WorkManagerDispacherServicer.registerPendingRequest();
   }
 }

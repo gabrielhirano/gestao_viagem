@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:gestao_viajem_onfly/core/services/error/app_exception.dart';
+import 'package:gestao_viajem_onfly/core/services/error/app_failure.dart';
 
 import 'package:gestao_viajem_onfly/feature/expense/model/expense_model.dart';
 
@@ -12,34 +14,42 @@ class ExpenseRepository {
 
       final dataList = response.data;
 
-      return (dataList as List<dynamic>)
-          .map((e) => ExpenseModel.fromMap(e))
+      return (dataList as List)
+          .map((data) => ExpenseModel.fromMap(data))
           .toList();
-    } catch (e) {
-      rethrow;
+    } on CacheException {
+      throw CacheFailure('Falha ao buscar dados salvos');
+    } catch (err) {
+      if (err is ServerException) throw ServerFailure.fromServerException(err);
+      throw Failure('Erro Desconhecido!');
     }
   }
 
-  Future<dynamic> registerExpense(ExpenseModel expense) async {
+  Future registerExpense(ExpenseModel expense) async {
     try {
-      final response = await client.post("/expense", data: expense.toJson());
-
-      return response;
-    } catch (e) {
-      rethrow;
+      await client.post(
+        "/expense",
+        data: expense.toJson(),
+      );
+    } on CacheException {
+      throw CacheFailure('Falha ao registrar nova despesa localmente.');
+    } catch (err) {
+      if (err is ServerException) throw ServerFailure.fromServerException(err);
+      throw Failure('Erro Desconhecido!');
     }
   }
 
-  Future<dynamic> updateExpense(ExpenseModel expense) async {
+  Future updateExpense(ExpenseModel expense) async {
     try {
-      final response = await client.put(
+      await client.put(
         "/expense/${expense.id}",
         data: expense.toJson(),
       );
-
-      return response;
-    } catch (e) {
-      rethrow;
+    } on CacheException {
+      throw CacheFailure('Falha ao modificar despesa localmente.');
+    } catch (err) {
+      if (err is ServerException) throw ServerFailure.fromServerException(err);
+      throw Failure('Erro Desconhecido!');
     }
   }
 }
