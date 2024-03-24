@@ -25,12 +25,14 @@ class ExpenseRepository {
     }
   }
 
-  Future registerExpense(ExpenseModel expense) async {
+  Future<String> registerExpense(ExpenseModel expense) async {
     try {
       await client.post(
         "/expense",
         data: expense.toJson(),
       );
+
+      return 'Nova despesa registrada.';
     } on CacheException {
       throw CacheFailure('Falha ao registrar nova despesa localmente.');
     } catch (err) {
@@ -39,12 +41,13 @@ class ExpenseRepository {
     }
   }
 
-  Future updateExpense(ExpenseModel expense) async {
+  Future<String> updateExpense(ExpenseModel expense) async {
     try {
       await client.put(
         "/expense/${expense.id}",
         data: expense.toJson(),
       );
+      return 'Informações sobre a despesa foram alteradas';
     } on CacheException {
       throw CacheFailure('Falha ao modificar despesa localmente.');
     } catch (err) {

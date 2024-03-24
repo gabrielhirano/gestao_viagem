@@ -1,7 +1,7 @@
 import 'package:connectivity/connectivity.dart';
-import 'package:gestao_viajem_onfly/core/helpers/enum/http_methods_enum.dart';
+
 import 'package:gestao_viajem_onfly/core/services/app_preferences.dart';
-import 'package:gestao_viajem_onfly/core/services/custom_request_options.dart';
+
 import 'package:gestao_viajem_onfly/core/services/interceptor/dio_connectivity_request_retrier.dart';
 import 'package:mobx/mobx.dart';
 

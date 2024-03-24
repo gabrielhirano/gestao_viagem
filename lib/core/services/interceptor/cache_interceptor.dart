@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:gestao_viajem_onfly/core/services/cache_resolver.dart';
 
-import 'package:gestao_viajem_onfly/core/services/error/app_exception.dart';
-
 class CacheInterceptor implements InterceptorsWrapper {
   final CacheResolver cacheResolver;
   CacheInterceptor(this.cacheResolver);
@@ -30,13 +28,15 @@ class CacheInterceptor implements InterceptorsWrapper {
         await cacheResolver
             .onResolveGet(err.requestOptions)
             .then((response) => handler.resolve(response))
-            .onError((error, stackTrace) => handler.reject(CacheException()));
+            .onError<DioException>((exception, _) {
+          handler.reject(exception);
+        });
         return;
       }
       await cacheResolver
           .onResolveChanges(err.requestOptions)
           .then((response) => handler.resolve(response))
-          .onError((error, stackTrace) => handler.reject(CacheException()));
+          .onError<DioException>((exception, _) => handler.reject(exception));
     }
   }
 }

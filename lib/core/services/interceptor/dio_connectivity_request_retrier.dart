@@ -10,8 +10,10 @@ class DioConnectivityRequestRetrier {
   DioConnectivityRequestRetrier({required this.dio});
 
   Future<Response> requestRetry(CustomRequestOptions requestOptions) async {
-    return dio.request(requestOptions.baseUrl + requestOptions.path,
+    var response = await dio.request(
+        requestOptions.baseUrl + requestOptions.path,
         data: requestOptions.data,
         options: Options(method: requestOptions.method));
+    return response;
   }
 }

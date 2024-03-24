@@ -12,7 +12,6 @@ import 'package:gestao_viajem_onfly/feature/expense/view/widget/text_field/expen
 import 'package:gestao_viajem_onfly/feature/expense/view/widget/text_field/expense_date_text_field_widget.dart';
 import 'package:gestao_viajem_onfly/feature/expense/view/widget/text_field/expense_name_text_field_widget.dart';
 import 'package:gestao_viajem_onfly/feature/expense/view/widget/text_field/expense_value_text_field_widget.dart';
-import 'package:intl/intl.dart';
 
 class EditExpenseScreen extends StatefulWidget {
   final ExpenseController expenseController;

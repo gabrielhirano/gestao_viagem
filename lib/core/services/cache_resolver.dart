@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+
 import 'package:gestao_viajem_onfly/core/helpers/extension/string_extension.dart';
 import 'package:gestao_viajem_onfly/core/services/app_preferences.dart';
 import 'package:gestao_viajem_onfly/core/services/custom_request_options.dart';
@@ -33,7 +34,7 @@ class CacheResolver {
       }
     }
 
-    throw CacheException;
+    throw CacheException();
   }
 
   Future<Response> onResolveChanges(RequestOptions requestOptions) async {
@@ -73,15 +74,19 @@ class CacheResolver {
       );
 
       saveResponseOnCache(response);
-      // saveRequestOnCache(requestOptions);
+      saveRequestPendingOnCache(requestOptions);
 
       return response;
+    } on FormatException {
+      throw Exception('Erro ao fazer conversão de tipo de dado.');
     } catch (e) {
-      throw CacheException;
+      throw CacheException();
     }
   }
 
-  Future<Response> saveRequestOnCache(RequestOptions requestOptions) async {
+  Future<Response> saveRequestPendingOnCache(
+    RequestOptions requestOptions,
+  ) async {
     try {
       final String key = requestOptions.method;
 
@@ -93,13 +98,13 @@ class CacheResolver {
       );
       var listRequest = await appPreferences.getList(key);
       listRequest.add(customRequestOptions.toJson());
-      await appPreferences.setList(key, listRequest);
 
-      await WorkManagerDispacherServicer.registerPendingRequest();
+      await WorkManagerDispacherService.registerPendingRequest();
+      await appPreferences.setList(key, listRequest);
 
       return Response(requestOptions: requestOptions);
     } catch (e) {
-      throw CacheException;
+      throw CacheException();
     }
   }
 }

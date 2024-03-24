@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:gestao_viajem_onfly/core/components/large_button_app.dart';
 
-import 'package:gestao_viajem_onfly/core/config/dependency_injection.dart';
 import 'package:gestao_viajem_onfly/core/controller/connectivity_controller.dart';
 import 'package:gestao_viajem_onfly/core/util/app_state.dart';
 import 'package:gestao_viajem_onfly/core/layout/components/app_text.dart';
 import 'package:gestao_viajem_onfly/core/layout/foundation/app_shapes.dart';
 import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';
 import 'package:gestao_viajem_onfly/core/helpers/extension/num_extension.dart';
+import 'package:gestao_viajem_onfly/core/util/getit_global.dart';
 import 'package:gestao_viajem_onfly/core/util/global.dart';
 
 import 'package:gestao_viajem_onfly/core/view/loading_screen.dart';
@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     connectivityController = getIt<ConnectivityController>();
 
     expenseController.getExpenses();
+
     super.initState();
   }
 
@@ -176,10 +177,13 @@ class _HomeScreenState extends State<HomeScreen> {
             (_, index) {
               final expense = expenses[index];
               return InkWell(
-                  onTap: () => appNavigator.navigate(EditExpenseScreen(
-                        expense: expense,
-                        expenseController: expenseController,
-                      )),
+                  onTap: () {
+                    // streamController.add({'data': 'change stream'});
+                    appNavigator.navigate(EditExpenseScreen(
+                      expense: expense,
+                      expenseController: expenseController,
+                    ));
+                  },
                   child: ExpenseCardWidget(expense: expense));
             },
             childCount: expenses.length,
