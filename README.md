@@ -26,6 +26,18 @@ A documentação detalhada sobre as escolhas de design e arquitetura, explicando
 
 ## Testes
 
+
+### Como rodar os testes?
+
+- Apos configurar setup, como explicado na documentação abaixo.
+> [**Justificativa de Design e Arquitetura**](https://github.com/gabrielhirano/gestao_viajem/blob/master/STRUCTURE.md)
+
+- Rode
+```console
+flutter test
+```
+
+
 **Testes Unitários**:
 ### `/core`
 - **`/util`**
