@@ -12,7 +12,6 @@ import 'package:gestao_viajem_onfly/core/theme/app_colors.dart';
 import 'package:gestao_viajem_onfly/core/util/app_navigator.dart';
 import 'package:gestao_viajem_onfly/core/util/getit_global.dart';
 import 'package:gestao_viajem_onfly/feature/expense/shared/expense_injection.dart';
-import 'package:gestao_viajem_onfly/feature/home/shared/home_injection.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -62,7 +61,6 @@ mixin DependencyInjection {
     //! Features
     Future.wait([
       ExpenseInjection.inject(getIt),
-      HomeInjection.inject(getIt),
     ]);
   }
 }
