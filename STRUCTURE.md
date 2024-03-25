@@ -85,10 +85,11 @@ Dentro da pasta `feature`, cada subpasta representa uma entidade do sistema. Por
 
 ## Decisão Arquitetural
 
-A arquitetura do nosso projeto Flutter foi concebida com a simplicidade em mente, garantindo que cada entidade (feature) seja autônoma e de fácil manutenção. A seguir, detalho a estrutura e o fluxo de dados adotados:
+A arquitetura do nosso projeto baseada em `Model-View-Controller (MVC)`. Foi concebida com a simplicidade em mente, garantindo que cada entidade (feature) seja autônoma e de fácil manutenção. A seguir, detalho a estrutura e o fluxo de dados adotados:
 
 ### Fluxo de Dados e Comunicação
 
+- **Moodel**: Inclui as classes de modelo que representam a estrutura de dados do aplicativo e a lógica de negócios associada.
 - **View**: A interface do usuário (UI) é projetada para ser minimalista e funcional, recebendo dados diretamente de um `Controller`.
 - **Controller**: Atua como intermediário entre a `View` e o `Repository`, gerenciando o estado e as ações do usuário.
 - **Repository**: Responsável pela comunicação com fontes de dados externas, utilizando o pacote `Dio` para realizar requisições HTTP.
