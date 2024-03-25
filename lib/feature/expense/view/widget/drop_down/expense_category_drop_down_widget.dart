@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gestao_viajem_onfly/core/helpers/extension/string_extension.dart';
+import 'package:gestao_viajem_onfly/core/helper/extension/string_extension.dart';
 import 'package:gestao_viajem_onfly/core/layout/components/app_text.dart';
 import 'package:gestao_viajem_onfly/core/layout/foundation/app_shapes.dart';
 import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';

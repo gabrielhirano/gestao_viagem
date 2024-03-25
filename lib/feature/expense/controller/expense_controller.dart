@@ -9,8 +9,8 @@ class ExpenseController {
   ExpenseController(this.repository);
   final ExpenseRepository repository;
 
-  final state = BaseState<List<ExpenseModel>>();
   final changedState = BaseState();
+  final state = BaseState<List<ExpenseModel>>();
 
   Future<void> getExpenses() async {
     await state.execute(() => repository.getExpenses());

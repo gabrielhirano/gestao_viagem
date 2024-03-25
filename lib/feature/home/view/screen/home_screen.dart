@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:gestao_viajem_onfly/core/components/large_button_app.dart';
+import 'package:gestao_viajem_onfly/core/component/large_button_app.dart';
 
 import 'package:gestao_viajem_onfly/core/controller/connectivity_controller.dart';
 import 'package:gestao_viajem_onfly/core/util/app_state.dart';
 import 'package:gestao_viajem_onfly/core/layout/components/app_text.dart';
 import 'package:gestao_viajem_onfly/core/layout/foundation/app_shapes.dart';
 import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';
-import 'package:gestao_viajem_onfly/core/helpers/extension/num_extension.dart';
+import 'package:gestao_viajem_onfly/core/helper/extension/num_extension.dart';
 import 'package:gestao_viajem_onfly/core/util/getit_global.dart';
 import 'package:gestao_viajem_onfly/core/util/global.dart';
 

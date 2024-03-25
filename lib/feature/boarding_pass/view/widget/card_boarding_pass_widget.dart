@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gestao_viajem_onfly/core/helpers/extension/date_time_extension.dart';
+import 'package:gestao_viajem_onfly/core/helper/extension/date_time_extension.dart';
 import 'package:gestao_viajem_onfly/core/layout/components/app_text.dart';
 import 'package:gestao_viajem_onfly/core/layout/foundation/app_shapes.dart';
 

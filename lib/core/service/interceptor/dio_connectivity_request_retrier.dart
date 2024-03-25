@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 
-import 'package:gestao_viajem_onfly/core/services/custom_request_options.dart';
+import 'package:gestao_viajem_onfly/core/model/custom_request_options.dart';
 
 class DioConnectivityRequestRetrier {
   final Dio dio;

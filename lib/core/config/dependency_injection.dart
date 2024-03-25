@@ -2,11 +2,11 @@ import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:gestao_viajem_onfly/core/controller/connectivity_controller.dart';
 
-import 'package:gestao_viajem_onfly/core/services/app_preferences.dart';
-import 'package:gestao_viajem_onfly/core/services/cache_resolver.dart';
-import 'package:gestao_viajem_onfly/core/services/interceptor/cache_interceptor.dart';
-import 'package:gestao_viajem_onfly/core/services/custom_dio.dart';
-import 'package:gestao_viajem_onfly/core/services/interceptor/dio_connectivity_request_retrier.dart';
+import 'package:gestao_viajem_onfly/core/service/app_preferences.dart';
+import 'package:gestao_viajem_onfly/core/service/cache_resolver.dart';
+import 'package:gestao_viajem_onfly/core/service/interceptor/cache_interceptor.dart';
+import 'package:gestao_viajem_onfly/core/service/custom_dio.dart';
+import 'package:gestao_viajem_onfly/core/service/interceptor/dio_connectivity_request_retrier.dart';
 
 import 'package:gestao_viajem_onfly/core/theme/app_colors.dart';
 import 'package:gestao_viajem_onfly/core/util/app_navigator.dart';

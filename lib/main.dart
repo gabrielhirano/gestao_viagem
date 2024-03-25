@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gestao_viajem_onfly/core/config/dependency_injection.dart';
 import 'package:gestao_viajem_onfly/core/config/onfly_app.dart';
-import 'package:gestao_viajem_onfly/core/services/work_manager_dispacher.dart';
+import 'package:gestao_viajem_onfly/core/service/work_manager_dispacher.dart';
 
 import 'package:workmanager/workmanager.dart';
 

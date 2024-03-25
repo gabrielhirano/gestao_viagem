@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:gestao_viajem_onfly/core/components/large_button_app.dart';
+import 'package:gestao_viajem_onfly/core/component/large_button_app.dart';
 import 'package:gestao_viajem_onfly/core/layout/components/app_text.dart';
 import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';
 import 'package:gestao_viajem_onfly/core/util/app_state.dart';

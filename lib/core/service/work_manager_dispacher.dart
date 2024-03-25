@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 
-import 'package:gestao_viajem_onfly/core/helpers/enum/http_methods_enum.dart';
-import 'package:gestao_viajem_onfly/core/services/app_preferences.dart';
-import 'package:gestao_viajem_onfly/core/services/custom_request_options.dart';
-import 'package:gestao_viajem_onfly/core/services/interceptor/dio_connectivity_request_retrier.dart';
+import 'package:gestao_viajem_onfly/core/helper/enum/http_methods_enum.dart';
+import 'package:gestao_viajem_onfly/core/service/app_preferences.dart';
+import 'package:gestao_viajem_onfly/core/model/custom_request_options.dart';
+import 'package:gestao_viajem_onfly/core/service/interceptor/dio_connectivity_request_retrier.dart';
 import 'package:gestao_viajem_onfly/core/util/global.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';

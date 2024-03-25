@@ -1,4 +1,4 @@
-import 'package:gestao_viajem_onfly/core/services/error/app_exception.dart';
+import 'package:gestao_viajem_onfly/core/service/error/app_exception.dart';
 
 class Failure {
   final String message;

@@ -1,8 +1,8 @@
 import 'package:connectivity/connectivity.dart';
 
-import 'package:gestao_viajem_onfly/core/services/app_preferences.dart';
+import 'package:gestao_viajem_onfly/core/service/app_preferences.dart';
 
-import 'package:gestao_viajem_onfly/core/services/interceptor/dio_connectivity_request_retrier.dart';
+import 'package:gestao_viajem_onfly/core/service/interceptor/dio_connectivity_request_retrier.dart';
 import 'package:mobx/mobx.dart';
 
 part 'connectivity_controller.g.dart';

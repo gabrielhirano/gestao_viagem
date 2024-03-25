@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import 'package:gestao_viajem_onfly/core/helpers/extension/string_extension.dart';
-import 'package:gestao_viajem_onfly/core/services/app_preferences.dart';
-import 'package:gestao_viajem_onfly/core/services/custom_request_options.dart';
-import 'package:gestao_viajem_onfly/core/services/error/app_exception.dart';
-import 'package:gestao_viajem_onfly/core/services/work_manager_dispacher.dart';
+import 'package:gestao_viajem_onfly/core/helper/extension/string_extension.dart';
+import 'package:gestao_viajem_onfly/core/service/app_preferences.dart';
+import 'package:gestao_viajem_onfly/core/model/custom_request_options.dart';
+import 'package:gestao_viajem_onfly/core/service/error/app_exception.dart';
+import 'package:gestao_viajem_onfly/core/service/work_manager_dispacher.dart';
 
 class CacheResolver {
   final AppPreferences appPreferences;

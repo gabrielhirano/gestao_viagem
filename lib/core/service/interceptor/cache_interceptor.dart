@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:gestao_viajem_onfly/core/services/cache_resolver.dart';
+import 'package:gestao_viajem_onfly/core/service/cache_resolver.dart';
 
 class CacheInterceptor implements InterceptorsWrapper {
   final CacheResolver cacheResolver;

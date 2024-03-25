@@ -1,4 +1,4 @@
-import 'package:gestao_viajem_onfly/core/services/error/app_failure.dart';
+import 'package:gestao_viajem_onfly/core/service/error/app_failure.dart';
 import 'package:mobx/mobx.dart';
 import 'app_state.dart';
 
