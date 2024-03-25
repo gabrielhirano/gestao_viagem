@@ -2,7 +2,7 @@
 
 ## Documentação
 
-A documentação detalhada sobre as escolhas de design e arquitetura foi fornecida, explicando as decisões tomadas e as metodologias aplicadas durante o desenvolvimento.
+A documentação detalhada sobre as escolhas de design e arquitetura, explicando as decisões tomadas e as metodologias aplicadas durante o desenvolvimento. Foi fornecida 👇
 > [**Justificativa de Design e Arquitetura**](https://github.com/gabrielhirano/gestao_viajem/blob/master/STRUCTURE.md)
 
 
