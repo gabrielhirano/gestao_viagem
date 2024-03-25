@@ -54,17 +54,18 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: appColors.colorBrandPrimaryBlue,
         title: AppText(
           text: 'Editar despesa  -  ${widget.expense.id}',
           textStyle: AppTextStyle.paragraphLargeBold,
-          textColor: appColors.colorTextBlack,
+          textColor: appColors.white,
         ),
         leading: InkWell(
           onTap: appNavigator.popNavigate,
           child: Icon(
             Icons.keyboard_arrow_left_rounded,
-            color: appColors.colorTextBlack,
-            size: 36,
+            color: appColors.white,
+            size: 32,
           ),
         ),
       ),
@@ -74,7 +75,7 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
           key: formKey,
           child: CustomScrollView(
             slivers: [
-              const SliverToBoxAdapter(child: SizedBox(height: 10)),
+              const SliverToBoxAdapter(child: SizedBox(height: 20)),
               SliverToBoxAdapter(
                 child: ExpenseNameTextField(
                   controller: nameTextController,

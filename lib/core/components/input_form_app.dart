@@ -76,7 +76,7 @@ class _InputFormAppState extends State<InputFormApp> {
             color: appColors.white,
             customRadius: const BorderRadius.all(Radius.circular(12)),
             border: widget.borderColor != null
-                ? ShapesBorder(widget.borderColor!, borderWidth: 2)
+                ? ShapesBorder(widget.borderColor!, borderWidth: 1)
                 : null,
           ),
           child: ClipRRect(

@@ -32,7 +32,7 @@ class _ExpenseCategoryDropDownWidgetState
         decoration: AppShapes.decoration(
           radius: RadiusSize.medium,
           color: appColors.white,
-          border: ShapesBorder(appColors.greyLight, borderWidth: 2),
+          border: ShapesBorder(appColors.greyLight, borderWidth: 1),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

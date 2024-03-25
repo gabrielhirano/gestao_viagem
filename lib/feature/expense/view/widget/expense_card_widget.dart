@@ -13,14 +13,15 @@ class ExpenseCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 20),
       decoration: AppShapes.decoration(
         radius: RadiusSize.small,
-        border: ShapesBorder(appColors.greyLight.withOpacity(0.1)),
+
+        // border: ShapesBorder(appColors.greyLight.withOpacity(0.1)),
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: 12,
-        vertical: 6,
+        vertical: 10,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,8 +41,9 @@ class ExpenseCardWidget extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 height: 40,
@@ -53,26 +55,35 @@ class ExpenseCardWidget extends StatelessWidget {
                 child: Icon(Icons.receipt, color: appColors.orange),
               ),
               const SizedBox(width: 16),
-              AppText(
-                text: expense.name,
-                textStyle: AppTextStyle.paragraphLargeBold,
-                textColor: appColors.colorTextBlack,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      text: expense.name,
+                      textStyle: AppTextStyle.paragraphLargeBold,
+                      textColor: appColors.colorTextBlack,
+                      maxLines: 2,
+                    ),
+                    AppText(
+                      text: expense.category.name.capitalize,
+                      textStyle: AppTextStyle.paragraphSmall,
+                      textColor: appColors.colorTextBlack,
+                    ),
+                  ],
+                ),
               ),
-              const Spacer(),
-              AppText(
-                text: expense.value.realCurrencyNumber,
-                textStyle: AppTextStyle.paragraphLargeBold,
-                textColor: appColors.colorTextBlack,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  AppText(
+                    text: expense.value.realCurrencyNumber,
+                    textStyle: AppTextStyle.paragraphLargeBold,
+                    textColor: appColors.colorTextBlack,
+                  ),
+                ],
               ),
             ],
-          ),
-          Container(
-            margin: const EdgeInsets.only(left: 56),
-            child: AppText(
-              text: expense.category.name.capitalize,
-              textStyle: AppTextStyle.paragraphSmall,
-              textColor: appColors.colorTextBlack,
-            ),
           ),
         ],
       ),

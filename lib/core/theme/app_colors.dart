@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class IAppColors {
   // Brands - Primary
-  final colorBrandPrimaryBlue = const Color(0xFF2a9efb);
+  final colorBrandPrimaryBlue = const Color(0xFF007DC7);
   final colorBrandPrimaryBlueLight = const Color(0xFF5AB7F5);
 
   final colorBrandSecondaryGreen = const Color(0xFF26a69a);
@@ -18,8 +18,8 @@ abstract class IAppColors {
   final colorFeedbackInfo = const Color(0xFF31ccec);
   final colorFeedbackWarning = const Color(0xFFf2c037);
 
-  final colorTextBlack = const Color(0xFF484554);
-  final colorTextBlackLight = Color.fromARGB(255, 12, 42, 66);
+  final colorTextBlack = const Color(0xFF555555);
+  final colorTextBlackLight = const Color(0xFF888888);
 
   // Generics
   final white = const Color(0xFFFFFFFF);
@@ -33,6 +33,8 @@ abstract class IAppColors {
 
   // Generics - Dark
   final greyDark = const Color(0xFF4A4A4A);
+
+  final whiteGrey = Color.fromARGB(255, 246, 246, 246);
 }
 
 class AppColors extends IAppColors {}

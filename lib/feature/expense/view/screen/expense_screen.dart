@@ -48,17 +48,18 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: appColors.colorBrandPrimaryBlue,
         title: AppText(
           text: 'Nova despesa',
           textStyle: AppTextStyle.paragraphLargeBold,
-          textColor: appColors.colorTextBlack,
+          textColor: appColors.white,
         ),
         leading: InkWell(
           onTap: appNavigator.popNavigate,
           child: Icon(
             Icons.keyboard_arrow_left_rounded,
-            color: appColors.colorTextBlack,
-            size: 36,
+            color: appColors.white,
+            size: 32,
           ),
         ),
       ),
@@ -68,7 +69,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
           key: formKey,
           child: CustomScrollView(
             slivers: [
-              const SliverToBoxAdapter(child: SizedBox(height: 10)),
+              const SliverToBoxAdapter(child: SizedBox(height: 20)),
               SliverToBoxAdapter(
                 child: ExpenseNameTextField(
                   controller: nameTextController,

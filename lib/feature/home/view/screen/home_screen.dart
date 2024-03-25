@@ -48,32 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appColors.white,
-      appBar: AppBar(
-        backgroundColor: appColors.white,
-        forceMaterialTransparency: true,
-        title: Row(
-          children: [
-            const AppText(
-              text: 'Onfly',
-              textStyle: AppTextStyle.headerH4,
-            ),
-            const SizedBox(width: 30),
-            Observer(builder: (_) {
-              return Visibility(
-                visible: connectivityController.isOffline,
-                child: const OfflineConnectionWidget(),
-              );
-            })
-          ],
-        ),
-        actions: const [
-          Icon(Icons.notifications),
-          SizedBox(width: 20),
-          Icon(Icons.person),
-          SizedBox(width: 12),
-        ],
-      ),
+      // backgroundColor: appColors.colorBrandPrimaryBlue,
+      // appBar: AppBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: Container(
         height: 112,
@@ -140,57 +116,105 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _sucessState(List<ExpenseModel> expenses) {
-    print(expenses);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: AppText(
-              text: 'Acessos',
-              textStyle: AppTextStyle.paragraphMediumBold,
-              textColor: appColors.colorTextBlack,
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          backgroundColor: appColors.colorBrandPrimaryBlue,
+          shadowColor: appColors.colorBrandPrimaryBlue,
+          iconTheme: IconThemeData(color: appColors.white),
+          title: Row(
+            children: [
+              AppText(
+                text: 'Onfly',
+                textStyle: AppTextStyle.headerH4,
+                textColor: appColors.white,
+              ),
+              const SizedBox(width: 30),
+              Observer(builder: (_) {
+                return Visibility(
+                  visible: connectivityController.isOffline,
+                  child: const OfflineConnectionWidget(),
+                );
+              })
+            ],
+          ),
+          actions: const [
+            Icon(Icons.notifications),
+            SizedBox(width: 20),
+            Icon(Icons.person),
+            SizedBox(width: 12),
+          ],
+        ),
+        SliverToBoxAdapter(
+          child: Container(
+            color: Colors.white,
+            child: Container(
+              height: 140,
+              decoration: AppShapes.decoration(
+                color: appColors.colorBrandPrimaryBlue,
+                customRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: AppText(
+                      text: 'Acessos',
+                      textStyle: AppTextStyle.paragraphMediumBold,
+                      textColor: appColors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      AcessCardTravelWidget(),
+                      AcessCardWalletWidget(),
+                      AcessCardReportWidget(),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
-          const SliverToBoxAdapter(child: SizedBox(height: 10)),
-          const SliverToBoxAdapter(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                AcessCardTravelWidget(),
-                AcessCardWalletWidget(),
-                AcessCardReportWidget(),
-              ],
-            ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
-          SliverToBoxAdapter(
+        ),
+        // const SliverToBoxAdapter(child: SizedBox(height: 20)),
+        SliverToBoxAdapter(
+          child: Container(
+            color: appColors.white,
+            padding: const EdgeInsets.all(20),
             child: AppText(
               text: 'Ultimas despesas',
               textStyle: AppTextStyle.paragraphMediumBold,
               textColor: appColors.colorTextBlack,
             ),
           ),
-          const SliverToBoxAdapter(child: SizedBox(height: 10)),
-          SliverList(
-              delegate: SliverChildBuilderDelegate(
-            (_, index) {
-              final expense = expenses[index];
-              return InkWell(
-                  onTap: () {
-                    // streamController.add({'data': 'change stream'});
-                    appNavigator.navigate(EditExpenseScreen(
-                      expense: expense,
-                      expenseController: expenseController,
-                    ));
-                  },
-                  child: ExpenseCardWidget(expense: expense));
-            },
-            childCount: expenses.length,
-          )),
-          const SliverToBoxAdapter(child: SizedBox(height: 140)),
-        ],
-      ),
+        ),
+        SliverList(
+            delegate: SliverChildBuilderDelegate(
+          (_, index) {
+            final expense = expenses[index];
+            return InkWell(
+                onTap: () {
+                  // streamController.add({'data': 'change stream'});
+                  appNavigator.navigate(EditExpenseScreen(
+                    expense: expense,
+                    expenseController: expenseController,
+                  ));
+                },
+                child: Container(
+                    color: appColors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ExpenseCardWidget(expense: expense)));
+          },
+          childCount: expenses.length,
+        )),
+        SliverToBoxAdapter(
+            child: Container(color: appColors.white, height: 140)),
+      ],
     );
   }
 }

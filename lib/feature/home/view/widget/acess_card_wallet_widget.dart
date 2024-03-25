@@ -9,30 +9,29 @@ class AcessCardWalletWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 12,
-      ),
-      decoration: AppShapes.decoration(
-        radius: RadiusSize.medium,
-        color: appColors.colorBrandPrimaryBlue.withOpacity(0.07),
-      ),
-      child: Column(
-        children: [
-          SvgPicture.asset(
+    return Column(
+      children: [
+        Container(
+          height: 60,
+          width: 60,
+          padding: const EdgeInsets.all(16),
+          decoration: AppShapes.decoration(
+            radius: RadiusSize.small,
+            color: appColors.white,
+          ),
+          child: SvgPicture.asset(
             'assets/svgs/ic_wallet.svg',
             height: 24,
             color: appColors.colorBrandPrimaryBlue,
           ),
-          const SizedBox(height: 10),
-          AppText(
-            text: 'Carteira',
-            textStyle: AppTextStyle.paragraphSmallBold,
-            textColor: appColors.colorTextBlack,
-          )
-        ],
-      ),
+        ),
+        const SizedBox(height: 10),
+        AppText(
+          text: 'Cartões',
+          textStyle: AppTextStyle.paragraphSmallBold,
+          textColor: appColors.white,
+        )
+      ],
     );
   }
 }
