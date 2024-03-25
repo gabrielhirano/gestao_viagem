@@ -1,5 +1,10 @@
 ## Progresso e Testes Implementados
 
+### Documentação
+A documentação detalhada sobre as escolhas de design e arquitetura foi fornecida, explicando as decisões tomadas e as metodologias aplicadas durante o desenvolvimento.
+> [**Justificativa de Design e Arquitetura**](https://github.com/gabrielhirano/gestao_viajem/edit/master/STRUCTURE.md)
+
+
 ### Funcionalidades Completas
 
 - **Funcionalidade Offline First**: Implementação bem-sucedida utilizando uma API mock para testar a sincronização, visualização, alteração e adição de despesas. A funcionalidade garante que os dados sejam armazenados localmente e sincronizados com o servidor quando houver conexão disponível.
@@ -18,8 +23,5 @@
 
 - **Testes Unitários e de Integração**: Foram escritos testes unitários e de integração para validar a qualidade do código e a estabilidade da aplicação. Os testes cobrem diferentes aspectos, incluindo lógica de negócios, interações com o banco de dados local e comunicação com o servidor.
 
-### Documentação
-
-- **Justificativa de Design e Arquitetura**: A documentação detalhada sobre as escolhas de design e arquitetura foi fornecida, explicando as decisões tomadas e as metodologias aplicadas durante o desenvolvimento.
 
 Este documento serve como um registro do progresso atual do projeto e das funcionalidades que foram testadas e validadas até o momento.
