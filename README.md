@@ -159,7 +159,10 @@ class ExpenseRepository {
 
 ## Arquitetura Offline First
 **Abordagem para armazenamento de dados**: `SharedPreferences`
+## Observações Importantes Sobre a Persistência de Dados
 
+> Embora `SharedPreferences` seja utilizado neste projeto para demonstração de conceitos, para implementações em ambientes de produção, recomenda-se o uso de soluções mais robustas. Opções como o `Firebase Realtime Database` são ideais para cenários que exigem capacidade de escuta ativa, permitindo atualizações em tempo real
+> 
 A implementação é baseada em um `CacheInterceptor` que gerencia as requisições HTTP.
 
 ### Cache Interceptor
