@@ -85,7 +85,7 @@ Dentro da pasta `feature`, cada subpasta representa uma entidade do sistema. Por
 
 ## Decisão Arquitetural
 
-A arquitetura do nosso projeto Flutter foi concebida com a simplicidade em mente, garantindo que cada entidade (feature) seja autônoma e de fácil manutenção. A seguir, detalhamos a estrutura e o fluxo de dados adotados:
+A arquitetura do nosso projeto Flutter foi concebida com a simplicidade em mente, garantindo que cada entidade (feature) seja autônoma e de fácil manutenção. A seguir, detalho a estrutura e o fluxo de dados adotados:
 
 ### Fluxo de Dados e Comunicação
 
