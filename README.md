@@ -156,3 +156,209 @@ class ExpenseRepository {
   }
 }
 ```
+
+## Arquitetura Offline First
+**Abordagem para armazenamento de dados**: `SharedPreferences`
+
+A implementação é baseada em um `CacheInterceptor` que gerencia as requisições HTTP.
+
+### Cache Interceptor
+
+O `CacheInterceptor` é responsável por interceptar erros de conexão e resolver requisições de duas maneiras:
+
+- **GET Requests**: Quando uma requisição GET é feita, os dados são salvos localmente usando `SharedPreferences`. Se não houver internet, o interceptor busca os dados salvos e retorna na resposta para o repositório.
+- **Non-GET Requests**: Para métodos diferentes de GET (POST, PUT, PATCH, DELETE), o interceptor modifica a instância do dado já salvo localmente e adiciona uma pendencia de requisição na fila, essa fila é salva no `SharedPreferences` e posteriormente recuperada e resolvida pelo `WorkManager` mesmo que seu aplicativo não esteja aberto ou em que não esteja em segundo plano;
+
+**Cache Interceptor**
+```dart
+@override
+void onError(DioException err, ErrorInterceptorHandler handler) async {
+  if (err.type == DioExceptionType.connectionError) {
+    if (err.requestOptions.method == 'GET') {
+      await cacheResolver
+          .onResolveGet(err.requestOptions)
+          .then((response) => handler.resolve(response))
+          .onError<DioException>((exception, _) {
+        handler.reject(exception);
+      });
+      return;
+    }
+    await cacheResolver
+        .onResolveChanges(err.requestOptions)
+        .then((response) => handler.resolve(response))
+        .onError<DioException>((exception, _) => handler.reject(exception));
+  }
+}
+
+```
+**Cache CacheResolver**
+```dart
+  Future<Response> onResolveGet(RequestOptions requestOptions) async {
+    final path = requestOptions.path;
+
+    if (appPreferences.preferences.containsKey(path)) {
+      final json = await appPreferences.get(path);
+
+      if (json != null) {
+      // Se existir dado localmente ele retorna uma response que será enviada lá para nosso repository
+        return Response(
+          requestOptions: requestOptions,
+          data: jsonDecode(json),
+        );
+      }
+    }
+    // Se não encontrar foi porque a 'requisição' falhou e irá retornar um cache exception, porque tentou buscar no cache
+    throw CacheException();
+  }
+
+
+  Future<Response> onResolveChanges(RequestOptions requestOptions) async {
+    try {
+      final baseEndPoint =
+          (requestOptions.baseUrl + requestOptions.path).extractBaseEndPoint;
+      // se não encontrar o BaseEndpoint que é a chave de acesso aos dados salvos do methodo GET ele irá retornar uma exception
+      if (baseEndPoint == null) throw CacheException;
+      
+      
+      final responseGet = await onResolveGet(
+        RequestOptions(path: baseEndPoint),
+      );
+     
+      final data = responseGet.data as List; // como são solicitações de modificação do conjunto de dados ele irá usar essa instancia para ser manipulada e então  
+                                             // sobrescrever o conjunto antigo com esse novo
+      final requestObject = jsonDecode(requestOptions.data);
+
+      switch (requestOptions.method) {
+        case 'POST':
+          data.add(requestObject);
+          break;
+        case 'PUT':
+        case 'PATCH':
+          for (Map<String, dynamic> object in data) {
+            if (requestObject['id'] == object['id']) {
+              object.clear();
+              object.addAll(requestObject);
+            }
+          }
+          break;
+        case 'DELETE':
+          data.removeWhere((object) => object['id'] == requestObject['id']);
+          break;
+      }
+      final response = Response(
+        requestOptions: RequestOptions(path: baseEndPoint),
+        data: data,
+      );
+
+      saveResponseOnCache(response); // aqui ele sobrescreve o conjunto antigo
+      saveRequestPendingOnCache(requestOptions); // aqui ele irá salvar a requisição localmente, será adicionado em uma fila na qual o metodo é a chave, salvamos o   
+                                                 // tipo da requisição e os dados que foram enviados para posteriormente recuperar e completar essa pendencia
+
+      return response;
+    } on FormatException {
+      throw Exception('Erro ao fazer conversão de tipo de dado.');
+    } catch (e) {
+      throw CacheException();
+    }
+  }
+
+```
+**WorkManagerDispacherService**
+```dart 
+  // o Workmanager é basicamente um isolate (thread) que opera em background, por não compartilhar o mesmo ciclo de vida do app, mesmo se o app não tiver aberto em 
+  // memoria ele ainda assim irá executar a task 
+  
+
+  // ao salvar executar o saveRequestPendingOnCache e salvar a pendencia local ele irá registrar uma task no Workmanager
+  static Future<void> registerPendingRequest() async {
+    if (await hasPendingRequest()) return;
+
+    final uniqueName = DateTime.now().microsecondsSinceEpoch.toString();
+    await Workmanager().registerPeriodicTask(
+      uniqueName,
+      'hasPendingRequest',
+      constraints: Constraints(networkType: NetworkType.connected),
+      inputData: {
+        'uniqueName': uniqueName,
+      },
+    );
+  }
+ 
+  // esse é a função que sera executada apos uma task ser registrada.
+  static Future<bool> dispatcher(
+    String taskName,
+    Map<String, dynamic>? inputData,
+  ) async {
+    if (taskName == 'hasPendingRequest') {
+      await _resolveRequests();
+
+      return Future.value(true);
+    }
+    return Future.value(false);
+  }
+  
+// esse metodo ira receber o tipo de requisição e uma Future e apos ela ser completada ele irá remover as pendencias de requisição daquele metodo
+  static Future _resolveRequestRetry(HttpMethods method, Future procedure) {
+    return procedure.then((_) {
+      _preferences.delete(method.name);
+    });
+  }
+
+  static Future<void> _resolveRequests() async {
+    await _initialize(); // necessario criar uma nova instancia do preferences;
+  
+    final posts = await _preferences.getList(HttpMethods.post.name);
+    final put = await _preferences.getList(HttpMethods.put.name);
+    final patch = await _preferences.getList(HttpMethods.patch.name);
+    final delete = await _preferences.getList(HttpMethods.delete.name);
+    // aqui ele vai verificar todas as filas de requisições e irá resolver por ordem de prioridade post > put > patch > delete 
+
+    // no metodo post podemos usar um Future.wait e enviar multiplas requisições ao mesmo tempo;
+    if (posts.isNotEmpty) {
+      final postsRequests = posts.map(CustomRequestOptions.fromJson).toList();
+      await _resolveRequestRetry(
+        HttpMethods.post,
+        Future.wait(postsRequests.map(_requestRetrier.requestRetry).toList()),
+      );
+    }
+
+    // no caso de put e patch tem que ser sequencial para não ocorrer conflitos
+    if (put.isNotEmpty) {
+      final putRequests = put.map(CustomRequestOptions.fromJson).toList();
+
+      List<Future<dynamic> Function()> functionList = putRequests
+          .map((request) =>
+              () async => (await _requestRetrier.requestRetry(request)).data)
+          .toList();
+
+      await _resolveRequestRetry(
+        HttpMethods.put,
+        runQueue(functionList),
+      );
+    }
+
+    if (patch.isNotEmpty) {
+      final patchRequests = patch.map(CustomRequestOptions.fromJson).toList();
+      List<Future<dynamic> Function()> functionList = patchRequests
+          .map((request) =>
+              () async => (await _requestRetrier.requestRetry(request)).data)
+          .toList();
+
+      await _resolveRequestRetry(
+        HttpMethods.patch,
+        runQueue(functionList),
+      );
+    }
+    // delete é o mesmo caso do post
+    if (delete.isNotEmpty) {
+      final deleteRequests = delete.map(CustomRequestOptions.fromJson).toList();
+      await _resolveRequestRetry(
+        HttpMethods.delete,
+        Future.wait(deleteRequests.map(_requestRetrier.requestRetry).toList()),
+      );
+    }
+  }
+
+
+
+```
