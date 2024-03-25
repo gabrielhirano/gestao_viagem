@@ -21,9 +21,30 @@ A documentação detalhada sobre as escolhas de design e arquitetura, explicando
 
 - **Relatórios de Despesas**: A funcionalidade para gerar relatórios detalhados de despesas, com gráficos e filtros para diferentes períodos, ainda não foi implementada.
 
+> **Observações**: A criação das interfaces de usuário (UI) será realizada utilizando dados simulados (mockados), focando exclusivamente no desenvolvimento da UI. Este método foi aplicado anteriormente na funcionalidade de viagem, servindo como prova das minhas competências. A única observação é em relação à implementação de gráficos, para a qual planejo utilizar as bibliotecas `d_chart` ou `flutter_charts`. Ambas oferecem uma abordagem simplificada para a ingestão de dados e sua subsequente representação gráfica.
+
+
 ## Testes
 
-- **Testes Unitários e de Integração**: Foram escritos testes unitários e de integração para validar a qualidade do código e a estabilidade da aplicação. Os testes cobrem diferentes aspectos, incluindo lógica de negócios, interações com o banco de dados local e comunicação com o servidor.
 
+### Como rodar os testes?
+
+- Apos configurar setup, como explicado na documentação abaixo.
+> [**Justificativa de Design e Arquitetura**](https://github.com/gabrielhirano/gestao_viajem/blob/master/STRUCTURE.md)
+
+- Rode
+```console
+flutter test
+```
+
+
+**Testes Unitários**:
+### `/core`
+- **`/util`**
+Implementado teste para o `BaseState`, que é a abstração utilizada para o gerenciamento de estado da aplicação.
+
+### `/feature`
+- **`/expense`**
+Desenvolvidos testes para as camadas de `model`, `controller` e `repository`.
 
 Este documento serve como um registro do progresso atual do projeto e das funcionalidades que foram testadas e validadas até o momento.

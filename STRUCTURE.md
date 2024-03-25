@@ -85,7 +85,7 @@ Dentro da pasta `feature`, cada subpasta representa uma entidade do sistema. Por
 
 ## Decisão Arquitetural
 
-A arquitetura do nosso projeto Flutter foi concebida com a simplicidade em mente, garantindo que cada entidade (feature) seja autônoma e de fácil manutenção. A seguir, detalhamos a estrutura e o fluxo de dados adotados:
+A arquitetura do nosso projeto Flutter foi concebida com a simplicidade em mente, garantindo que cada entidade (feature) seja autônoma e de fácil manutenção. A seguir, detalho a estrutura e o fluxo de dados adotados:
 
 ### Fluxo de Dados e Comunicação
 
@@ -226,9 +226,11 @@ void onError(DioException err, ErrorInterceptorHandler handler) async {
       final responseGet = await onResolveGet(
         RequestOptions(path: baseEndPoint),
       );
-     
-      final data = responseGet.data as List; // como são solicitações de modificação do conjunto de dados ele irá usar essa instancia para ser manipulada e então  
-                                             // sobrescrever o conjunto antigo com esse novo
+
+     // como são solicitações de modificação do conjunto de dados ele irá usar essa instancia para ser manipulada e então
+     // sobrescrever o conjunto antigo com esse novo
+      final data = responseGet.data as List; 
+                                             
       final requestObject = jsonDecode(requestOptions.data);
 
       switch (requestOptions.method) {
@@ -253,10 +255,13 @@ void onError(DioException err, ErrorInterceptorHandler handler) async {
         data: data,
       );
 
-      saveResponseOnCache(response); // aqui ele sobrescreve o conjunto antigo
-      saveRequestPendingOnCache(requestOptions); // aqui ele irá salvar a requisição localmente, será adicionado em uma fila na qual o metodo é a chave, salvamos o   
-                                                 // tipo da requisição e os dados que foram enviados para posteriormente recuperar e completar essa pendencia
+      // sobrescreve o conjunto antigo
+      saveResponseOnCache(response); 
 
+      // salva a requisição localmente, será adicionado em uma fila na qual o metodo é a chave, salvamos o
+      // tipo da requisição e os dados que foram enviados para posteriormente recuperar e completar essa pendencia
+      saveRequestPendingOnCache(requestOptions);   
+                                                 
       return response;
     } on FormatException {
       throw Exception('Erro ao fazer conversão de tipo de dado.');
@@ -268,8 +273,8 @@ void onError(DioException err, ErrorInterceptorHandler handler) async {
 ```
 **WorkManagerDispacherService**
 ```dart 
-  // o Workmanager é basicamente um isolate (thread) que opera em background, por não compartilhar o mesmo ciclo de vida do app, mesmo se o app não tiver aberto em 
-  // memoria ele ainda assim irá executar a task 
+  // o Workmanager é basicamente um isolate (thread) que opera em background, por não compartilhar o mesmo ciclo de vida do app,
+  // mesmo se o app não tiver aberto em memoria ele ainda assim irá executar a task 
   
 
   // ao salvar executar o saveRequestPendingOnCache e salvar a pendencia local ele irá registrar uma task no Workmanager
@@ -300,7 +305,8 @@ void onError(DioException err, ErrorInterceptorHandler handler) async {
     return Future.value(false);
   }
   
-// esse metodo ira receber o tipo de requisição e uma Future e apos ela ser completada ele irá remover as pendencias de requisição daquele metodo
+// esse metodo ira receber o tipo de requisição e uma Future e apos ela ser completada ele irá remover as pendencias
+// de requisição daquele metodo
   static Future _resolveRequestRetry(HttpMethods method, Future procedure) {
     return procedure.then((_) {
       _preferences.delete(method.name);
@@ -314,7 +320,8 @@ void onError(DioException err, ErrorInterceptorHandler handler) async {
     final put = await _preferences.getList(HttpMethods.put.name);
     final patch = await _preferences.getList(HttpMethods.patch.name);
     final delete = await _preferences.getList(HttpMethods.delete.name);
-    // aqui ele vai verificar todas as filas de requisições e irá resolver por ordem de prioridade post > put > patch > delete 
+    // aqui ele vai verificar todas as filas de requisições e irá resolver por ordem de prioridade
+    // post > put > patch > delete 
 
     // no metodo post podemos usar um Future.wait e enviar multiplas requisições ao mesmo tempo;
     if (posts.isNotEmpty) {
