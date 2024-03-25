@@ -42,7 +42,7 @@ mixin DependencyInjection {
     );
 
     getIt.registerLazySingleton<ConnectivityController>(
-      () => ConnectivityController(getIt(), getIt(), getIt()),
+      () => ConnectivityController(getIt()),
     );
 
     getIt.registerLazySingleton<AppNavigator>(
@@ -52,11 +52,6 @@ mixin DependencyInjection {
     getIt.registerLazySingleton<IAppColors>(
       () => AppColors(),
     );
-
-    // WorkManagerDispacherService.initialize(
-    //   getIt<AppPreferences>(),
-    //   getIt<DioConnectivityRequestRetrier>(),
-    // );
 
     //! Features
     Future.wait([

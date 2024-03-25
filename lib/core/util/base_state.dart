@@ -29,7 +29,7 @@ abstract class BaseStateBase<T> with Store {
   Future<void> execute(Future<T> Function() value) async {
     _state = AppState.loading;
     await value().then((response) {
-      if (response.runtimeType == List && (response as List).isEmpty) {
+      if (response is List && (response as List).isEmpty) {
         _state = AppState.empty;
       } else {
         _state = AppState.success;
