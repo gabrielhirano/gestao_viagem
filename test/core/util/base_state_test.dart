@@ -37,6 +37,6 @@ void main() {
       });
       expect(baseState.getState, AppState.error);
       expect(baseState.getError, failure);
-    }, skip: 'Base state está com problemas para forcar teste de erro');
+    }, skip: 'Base state está com problemas para capturar a exception');
   });
 }

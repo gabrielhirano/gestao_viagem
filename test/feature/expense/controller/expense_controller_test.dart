@@ -70,5 +70,7 @@ void main() {
     await expenseController.getExpenses();
 
     expect(expenseController.state.getState, AppState.error);
-  }, skip: 'Este teste esta será resolvido posteriormente');
+  },
+      skip:
+          'A exception enviada pelo thenThrow não esta sendo capturada pelo BaseState');
 }
