@@ -226,9 +226,10 @@ void onError(DioException err, ErrorInterceptorHandler handler) async {
       final responseGet = await onResolveGet(
         RequestOptions(path: baseEndPoint),
       );
-     
-      final data = responseGet.data as List; // como são solicitações de modificação do conjunto de dados ele irá usar essa instancia para ser manipulada e então  
-                                             // sobrescrever o conjunto antigo com esse novo
+     // como são solicitações de modificação do conjunto de dados ele irá usar essa instancia para ser manipulada e então
+     // sobrescrever o conjunto antigo com esse novo
+      final data = responseGet.data as List; 
+                                             
       final requestObject = jsonDecode(requestOptions.data);
 
       switch (requestOptions.method) {
