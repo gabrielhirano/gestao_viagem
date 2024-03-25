@@ -25,7 +25,7 @@ abstract class IAppColors {
   final white = const Color(0xFFFFFFFF);
   final black = const Color(0xFF000000);
   final blue = const Color(0xFF32759A);
-  final orange = Color.fromARGB(255, 255, 118, 50);
+  final orange = const Color.fromARGB(255, 255, 118, 50);
 
   final transparent = Colors.transparent;
 
@@ -34,7 +34,7 @@ abstract class IAppColors {
   // Generics - Dark
   final greyDark = const Color(0xFF4A4A4A);
 
-  final whiteGrey = Color.fromARGB(255, 246, 246, 246);
+  final whiteGrey = const Color.fromARGB(255, 246, 246, 246);
 }
 
 class AppColors extends IAppColors {}

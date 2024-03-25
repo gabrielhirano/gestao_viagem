@@ -151,7 +151,6 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
     if (widget.expenseController.state.getState == AppState.error) {
       // Aqui seria para tratar as mensagens de erro ou fluxo de erro;
       final errorMessage = widget.expenseController.state.getError.message;
-      print(errorMessage);
     }
 
     appNavigator.popNavigate();

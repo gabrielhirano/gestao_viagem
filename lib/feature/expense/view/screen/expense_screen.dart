@@ -12,7 +12,6 @@ import 'package:gestao_viajem_onfly/feature/expense/view/widget/text_field/expen
 import 'package:gestao_viajem_onfly/feature/expense/view/widget/text_field/expense_date_text_field_widget.dart';
 import 'package:gestao_viajem_onfly/feature/expense/view/widget/text_field/expense_name_text_field_widget.dart';
 import 'package:gestao_viajem_onfly/feature/expense/view/widget/text_field/expense_value_text_field_widget.dart';
-import 'package:intl/intl.dart';
 
 class ExpenseScreen extends StatefulWidget {
   final ExpenseController expenseController;
@@ -144,7 +143,6 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
     if (widget.expenseController.state.getState == AppState.error) {
       // Aqui seria para tratar as mensagens de erro ou fluxo de erro;
       final errorMessage = widget.expenseController.state.getError.message;
-      print(errorMessage);
     }
 
     appNavigator.popNavigate();

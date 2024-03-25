@@ -147,7 +147,7 @@ class BoardingPassScreen extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: AppShapes.decoration(
                         color: Colors.grey.withOpacity(0.1)),
-                    child: Center(
+                    child: const Center(
                       child: Text('Codigo de barras'),
                     ),
                   )

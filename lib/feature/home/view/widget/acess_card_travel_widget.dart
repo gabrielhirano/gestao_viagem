@@ -13,7 +13,7 @@ class AcessCardTravelWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        appNavigator.navigate(TravelsScreen());
+        appNavigator.navigate(const TravelsScreen());
       },
       child: Column(
         children: [

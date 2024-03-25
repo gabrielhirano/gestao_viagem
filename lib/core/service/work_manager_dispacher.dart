@@ -9,7 +9,6 @@ import 'package:gestao_viajem_onfly/core/util/global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:workmanager/workmanager.dart';
-import 'dart:developer' as dev;
 
 class WorkManagerDispacherService {
   static late AppPreferences _preferences;
@@ -25,11 +24,7 @@ class WorkManagerDispacherService {
     String taskName,
     Map<String, dynamic>? inputData,
   ) async {
-    dev.log('call dispatcher', name: 'dispatcher');
-
     if (taskName == 'hasPendingRequest') {
-      dev.log('hasPendingRequest', name: 'dispatcher');
-
       await _resolveRequests();
 
       return Future.value(true);

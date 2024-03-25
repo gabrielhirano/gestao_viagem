@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestao_viajem_onfly/core/util/app_navigator.dart';
 import 'package:gestao_viajem_onfly/core/util/getit_global.dart';
-import 'package:gestao_viajem_onfly/core/util/global.dart';
 import 'package:gestao_viajem_onfly/feature/home/view/screen/home_screen.dart';
 
 class OnflyApp extends StatefulWidget {
