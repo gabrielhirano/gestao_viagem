@@ -89,10 +89,10 @@ A arquitetura do nosso projeto baseada em `Model-View-Controller (MVC)`. Foi con
 
 ### Fluxo de Dados e Comunicação
 
-- **Moodel**: Inclui as classes de modelo que representam a estrutura de dados do aplicativo e a lógica de negócios associada.
 - **View**: A interface do usuário (UI) é projetada para ser minimalista e funcional, recebendo dados diretamente de um `Controller`.
 - **Controller**: Atua como intermediário entre a `View` e o `Repository`, gerenciando o estado e as ações do usuário.
 - **Repository**: Responsável pela comunicação com fontes de dados externas, utilizando o pacote `Dio` para realizar requisições HTTP.
+
 
 ### Tratamento de Exceções e Retorno de Dados
 
