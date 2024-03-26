@@ -35,40 +35,22 @@ A pasta `core` contém todos os arquivos globais que são compartilhados e reuti
 
  - **`/config`**
  Esta subpasta gerencia todas as configurações globais do aplicativo, como injeção de depêndencia e configuração de ambiente.
-
-
  - **`/component`**
  Armazena componentes reutilizáveis que podem ser compartilhados entre diferentes telas e funcionalidades, como botões personalizados, diálogos e cartões.
-
-
  - **`/layout`**
  Define os layouts base que são usados em todo o aplicativo, garantindo consistência e reutilização de estruturas comuns.
-
-
  - **`/theme`**
  Contém a definição do tema do aplicativo, incluindo esquemas de cores, e elementos visuais que seguem as diretrizes da marca Onfly.
-
-
  - **`/widget`**
  Reúne widgets personalizados que são específicos para o aplicativo, mas que não se encaixam na categoria de componentes por serem mais complexos ou contextuais.
-
-
  - **`/model`**
  Inclui as classes de modelo que representam a estrutura de dados do aplicativo e a lógica de negócios associada.
-
-
  - **`/service`**
  Agrupa os serviços que lidam com operações como chamadas de rede, interações com bancos de dados local e controle para sincronização de requisições pendentes.
-
-
  - **`/controller`**
  Contém os controladores globais para notificar as views, gerenciando o fluxo de dados e a lógica de negócios.
-
-
  - **`/util`**
  Oferece classes utilitárias que fornecem funcionalidades como um navegador e uma abstracao de estado base para o gerenciador de estado
-
-
  - **`/helper`**
  Fornece funções auxiliadoras como enum, extension e validator
 
