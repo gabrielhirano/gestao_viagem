@@ -26,18 +26,21 @@ abstract class BaseStateBase<T> with Store {
   Failure get getError => _error;
 
   @action
-  Future<void> execute(Future<T> Function() value) async {
+  Future<void> execute(Future<T> Function() process) async {
     _state = AppState.loading;
-    await value().then((response) {
+    try {
+      T response = await process();
       if (response is List && (response as List).isEmpty) {
         _state = AppState.empty;
       } else {
         _state = AppState.success;
         _data = response;
       }
-    }).onError<Failure>((error, stack) {
+    } catch (error) {
+      if (error is Failure) {
+        _error = error;
+      }
       _state = AppState.error;
-      _error = error;
-    });
+    }
   }
 }
