@@ -4,11 +4,17 @@ import 'package:gestao_viajem_onfly/core/util/base_state.dart';
 import 'package:gestao_viajem_onfly/core/service/error/app_failure.dart';
 import 'package:mocktail/mocktail.dart';
 
+class MockProcess<T> extends Mock {
+  Future<T> call();
+}
+
 void main() {
   late BaseState<String> baseState;
+  late MockProcess<String> mockProcess;
 
   setUp(() {
     baseState = BaseState<String>();
+    mockProcess = MockProcess<String>();
   });
 
   group('BaseState Tests', () {
@@ -25,18 +31,27 @@ void main() {
     });
 
     test('Execute changes state to loading and then to success', () async {
-      await baseState.execute(() async => 'Test Data');
+      when(mockProcess).thenAnswer((_) async {
+        await Future.delayed(const Duration(seconds: 1));
+        return '42';
+      });
+
+      final future = baseState.execute(mockProcess);
+
+      expect(baseState.getState, AppState.loading);
+
+      await future;
+
       expect(baseState.getState, AppState.success);
-      expect(baseState.getData, 'Test Data');
+      expect(baseState.getData, '42');
     });
 
     test('Execute handles errors', () async {
       final failure = Failure('Test Error');
-      await baseState.execute(() {
-        throw Exception();
-      });
+      await baseState.execute(() => throw failure);
+
       expect(baseState.getState, AppState.error);
       expect(baseState.getError, failure);
-    }, skip: 'Base state está com problemas para capturar a exception');
+    });
   });
 }

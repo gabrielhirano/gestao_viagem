@@ -63,14 +63,13 @@ void main() {
   });
 
   test(
-      'When getExpenses is called and throws Failure, it should set AppState to error',
-      () async {
-    when(() => mockExpenseRepository.getExpenses()).thenThrow(Exception());
+    'When getExpenses is called and throws Failure, it should set AppState to error',
+    () async {
+      when(() => mockExpenseRepository.getExpenses()).thenThrow(Exception());
 
-    await expenseController.getExpenses();
+      await expenseController.getExpenses();
 
-    expect(expenseController.state.getState, AppState.error);
-  },
-      skip:
-          'A exception enviada pelo thenThrow não esta sendo capturada pelo BaseState');
+      expect(expenseController.state.getState, AppState.error);
+    },
+  );
 }
