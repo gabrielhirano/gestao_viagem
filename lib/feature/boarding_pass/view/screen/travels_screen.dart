@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:gestao_viajem_onfly/core/layout/components/app_text.dart';
 
 import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';
+import 'package:gestao_viajem_onfly/core/util/getit_global.dart';
 import 'package:gestao_viajem_onfly/core/util/global.dart';
+import 'package:gestao_viajem_onfly/feature/boarding_pass/controller/boarding_pass_controller.dart';
 
-import 'package:gestao_viajem_onfly/feature/boarding_pass/model/boarding_pass_model.dart';
 import 'package:gestao_viajem_onfly/feature/boarding_pass/view/screen/boarding_pass_screen.dart';
 import 'package:gestao_viajem_onfly/feature/boarding_pass/view/widget/card_boarding_pass_widget.dart';
 
@@ -17,55 +18,11 @@ class TravelsScreen extends StatefulWidget {
 }
 
 class _TravelsScreenState extends State<TravelsScreen> {
-  late BoardingPassModel boardingPass;
-  late BoardingPassModel boardingPass2;
+  late BoardingPassController boardingPassController;
+
   @override
   void initState() {
-    final mock = {
-      "passenger": "Gabriel Hirano",
-      "number": "BP456789",
-      "airlineCompany": "Gol Linhas Aéreas",
-      "departure": 1674950400000,
-      "arrival": 1674957600000,
-      "origin": {
-        "name":
-            "Aeroporto Internacional de Guarulhos - Governador André Franco Montoro",
-        "acronym": "GRU",
-        "location": "São Paulo"
-      },
-      "destination": {
-        "name": "Aeroporto Internacional de Congonhas",
-        "acronym": "CGH",
-        "location": "São Paulo"
-      },
-      "seat": "12C",
-      "gate": "A3",
-      "terminal": "Terminal 2"
-    };
-
-    final mock2 = {
-      "passenger": "Gabriel Hirano",
-      "number": "GV295164",
-      "airlineCompany": "Azul",
-      "departure": 1721014400000,
-      "arrival": 1721022600000,
-      "origin": {
-        "name": "Aeroporto Internacional de Congonhas",
-        "acronym": "CGH",
-        "location": "São Paulo"
-      },
-      "destination": {
-        "name":
-            "Aeroporto Internacional de Guarulhos - Governador André Franco Montoro",
-        "acronym": "GRU",
-        "location": "São Paulo"
-      },
-      "seat": "12C",
-      "gate": "A3",
-      "terminal": "Terminal 2"
-    };
-    boardingPass = BoardingPassModel.fromMap(mock);
-    boardingPass2 = BoardingPassModel.fromMap(mock2);
+    boardingPassController = getIt<BoardingPassController>();
     super.initState();
   }
 
@@ -84,27 +41,27 @@ class _TravelsScreenState extends State<TravelsScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            InkWell(
-                onTap: () {
-                  appNavigator.navigate(
-                    BoardingPassScreen(boardingPass: boardingPass),
+        child: CustomScrollView(
+          slivers: [
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (_, index) {
+                  final boardingPass =
+                      boardingPassController.state.getData?[index];
+
+                  if (boardingPass == null) return const SizedBox.shrink();
+
+                  return CardBoardingPassWidget(
+                    boardingPass: boardingPass,
+                    withShadow: true,
+                    onTap: () => appNavigator.navigate(
+                      BoardingPassScreen(boardingPass: boardingPass),
+                    ),
                   );
                 },
-                child: CardBoardingPassWidget(
-                  boardingPass: boardingPass,
-                  withShadow: true,
-                )),
-            InkWell(
-              onTap: () {
-                appNavigator.navigate(
-                  BoardingPassScreen(boardingPass: boardingPass2),
-                );
-              },
-              child: CardBoardingPassWidget(
-                  boardingPass: boardingPass2, withShadow: true),
+                childCount: boardingPassController.state.getData?.length,
+              ),
             ),
           ],
         ),

@@ -5,6 +5,7 @@ import 'package:gestao_viajem_onfly/core/layout/foundation/app_shapes.dart';
 import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';
 import 'package:gestao_viajem_onfly/core/util/global.dart';
 import 'package:gestao_viajem_onfly/feature/boarding_pass/model/boarding_pass_model.dart';
+import 'package:gestao_viajem_onfly/feature/boarding_pass/view/widget/card_boarding_field_widget.dart';
 import 'package:gestao_viajem_onfly/feature/boarding_pass/view/widget/card_boarding_pass_widget.dart';
 import 'package:gestao_viajem_onfly/feature/boarding_pass/view/widget/dashed_line_ticket_widget.dart';
 
@@ -95,18 +96,18 @@ class BoardingPassScreen extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: _buildField(
+                              child: CardBoardingFieldWidget(
                                 title: 'Embarque',
-                                info: boardingPass.departure
-                                    .formatToBrazilianTime(),
+                                info: boardingPass
+                                    .departure.formatToBrazilianTime,
                               ),
                             ),
                             const SizedBox(width: 16),
                             Expanded(
-                              child: _buildField(
+                              child: CardBoardingFieldWidget(
                                 title: 'Desembarque',
-                                info: boardingPass.arrival
-                                    .formatToBrazilianTime(),
+                                info:
+                                    boardingPass.arrival.formatToBrazilianTime,
                               ),
                             ),
                           ],
@@ -115,21 +116,21 @@ class BoardingPassScreen extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: _buildField(
+                              child: CardBoardingFieldWidget(
                                 title: 'Assento ',
                                 info: boardingPass.seat,
                               ),
                             ),
                             const SizedBox(width: 16),
                             Expanded(
-                              child: _buildField(
+                              child: CardBoardingFieldWidget(
                                 title: 'Terminal',
                                 info: boardingPass.terminal,
                               ),
                             ),
                             const SizedBox(width: 16),
                             Expanded(
-                              child: _buildField(
+                              child: CardBoardingFieldWidget(
                                 title: 'Portão',
                                 info: boardingPass.gate,
                               ),
@@ -157,29 +158,6 @@ class BoardingPassScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildField({required String title, required String info}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      decoration: AppShapes.decoration(
-        color: appColors.whiteGrey,
-        radius: RadiusSize.small,
-      ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        AppText(
-          text: title,
-          textStyle: AppTextStyle.paragraphSmall,
-          textColor: appColors.colorTextBlackLight,
-        ),
-        const SizedBox(height: 4),
-        AppText(
-          text: info,
-          textStyle: AppTextStyle.paragraphMediumBold,
-          textColor: appColors.colorTextBlack,
-        )
-      ]),
     );
   }
 }
