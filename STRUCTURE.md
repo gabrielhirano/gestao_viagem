@@ -10,11 +10,27 @@
 [Download](https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flutter_windows_3.19.0-stable.zip)
 
 ### Como rodar na minha máquina?
+> Configurei uma ‘pipeline’ para realizar a configuração e agora você tem a opção de usá-la ou seguir o caminho tradicional.
 
 - Clone
 ```console
 git clone https://github.com/gabrielhirano/gestao_viajem.git
 ```
+Navegue até a pasta do projeto e no terminal ->
+### **Primeira opção - Derry**
+- Rode
+```console
+flutter pub global activate derry
+```
+- Se você deseja apenas configurar o projeto, execute o seguinte comando:
+```console
+derry build_project
+```
+- Caso queira configurar o projeto e verificar os testes, utilize o comando:
+```console
+derry pipe_line
+```
+### **Segunda opção - Tradicional**
 - Rode
 ```console
 flutter pub get
@@ -23,7 +39,7 @@ flutter pub get
 ```console
 flutter packages pub run build_runner build --delete-conflicting-outputs
 ```
-- Pronto 🎉
+ ### Pronto 🎉
 
 ## Estrutura do Projeto
 
@@ -73,7 +89,7 @@ A arquitetura do nosso projeto baseada em `Model-View-Controller (MVC)`. Foi con
 
 - **View**: A interface do usuário (UI) é projetada para ser minimalista e funcional, recebendo dados diretamente de um `Controller`.
 - **Controller**: Atua como intermediário entre a `View` e o `Repository`, gerenciando o estado e as ações do usuário.
-- **Repository**: Responsável pela comunicação com fontes de dados externas, utilizando o pacote `Dio` para realizar requisições HTTP.
+- **Repository**: Responsável pela comunicação com fontes de dados externas ou internas, utilizando o pacote `Dio` para realizar requisições HTTP e/ou recuperando dados locais do `SharedPreferences`.
 
 
 ### Tratamento de Exceções e Retorno de Dados
@@ -123,21 +139,25 @@ class ExpenseRepository {
 
 ```dart
   @action
-  Future<void> execute(Future<T> Function() value) async {
+  Future<void> execute(Future<T> Function() process) async {
     _state = AppState.loading;
-    await value().then((response) {
-      if (response.runtimeType == List && (response as List).isEmpty) {
+    try {
+      T response = await process();
+
+      if (response is List && response.isEmpty) {
         _state = AppState.empty;
+        _data = response;
       } else {
         _state = AppState.success;
         _data = response;
       }
-    }).onError<Failure>((error, stack) {
+    } catch (error) {
+      if (error is Failure) {
+        _error = error;
+      }
       _state = AppState.error;
-      _error = error;
-    });
+    }
   }
-}
 ```
 
 ## Arquitetura Offline First
@@ -153,7 +173,7 @@ A implementação é baseada em um `CacheInterceptor` que gerencia as requisiç�
 O `CacheInterceptor` é responsável por interceptar erros de conexão e resolver requisições de duas maneiras:
 
 - **GET Requests**: Quando uma requisição GET é feita, os dados são salvos localmente usando `SharedPreferences`. Se não houver internet, o interceptor busca os dados salvos e retorna na resposta para o repositório.
-- **Non-GET Requests**: Para métodos diferentes de GET (POST, PUT, PATCH, DELETE), o interceptor modifica a instância do dado já salvo localmente e adiciona uma pendencia de requisição na fila, essa fila é salva no `SharedPreferences` e posteriormente recuperada e resolvida pelo `WorkManager` mesmo que seu aplicativo não esteja aberto ou em que não esteja em segundo plano;
+- **Non-GET Requests**: Para métodos diferentes de GET (POST, PUT, PATCH, DELETE), o interceptor modifica a instância do dado já salvo localmente e adiciona uma pendencia de requisição na fila, essa fila é salva no `SharedPreferences` e posteriormente recuperada e resolvida pelo `WorkManager`, mesmo com o aplicativo aberto, em segundo plano ou fechado.
 
 **Cache Interceptor**
 ```dart
