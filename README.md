@@ -54,6 +54,6 @@ Implementado teste para o `BaseState`, que é a abstração utilizada para o ger
 - **`/expense`**
 Desenvolvidos testes para as camadas de `model`, `controller` e `repository`.
 - **`/home`**
-Desenvolvidos teste para camada de `view` verificando apenas os estados possiveis da home
+Desenvolvido teste para camada de `view` verificando apenas as trocas de estados possiveis da home
 
 Este documento serve como um registro do progresso atual do projeto e das funcionalidades que foram testadas e validadas até o momento.
