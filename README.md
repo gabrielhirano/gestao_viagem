@@ -32,6 +32,13 @@ A documentação detalhada sobre as escolhas de design e arquitetura, explicando
 - Apos configurar setup, como explicado na documentação abaixo.
 > [**Justificativa de Design e Arquitetura**](https://github.com/gabrielhirano/gestao_viajem/blob/master/STRUCTURE.md)
 
+### **Se optou por usar o derry**
+- Rode
+```console
+derry view_test
+```
+
+### **Tradicional**
 - Rode
 ```console
 flutter test
@@ -46,5 +53,7 @@ Implementado teste para o `BaseState`, que é a abstração utilizada para o ger
 ### `/feature`
 - **`/expense`**
 Desenvolvidos testes para as camadas de `model`, `controller` e `repository`.
+- **`/home`**
+Desenvolvidos teste para camada de `view` verificando apenas os estados possiveis da home
 
 Este documento serve como um registro do progresso atual do projeto e das funcionalidades que foram testadas e validadas até o momento.
