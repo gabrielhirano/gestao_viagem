@@ -81,9 +81,12 @@ mixin _$BaseState<T> on BaseStateBase<T>, Store {
       AsyncAction('BaseStateBase.execute', context: context);
 
   @override
-  Future<void> execute(Future<T> Function() value) {
-    return _$executeAsyncAction.run(() => super.execute(value));
+  Future<void> execute(Future<T> Function() process) {
+    return _$executeAsyncAction.run(() => super.execute(process));
   }
+
+  late final _$BaseStateBaseActionController =
+      ActionController(name: 'BaseStateBase', context: context);
 
   @override
   String toString() {

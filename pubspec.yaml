@@ -40,3 +40,5 @@ flutter:
     - assets/
     - assets/images/
     - assets/svgs/
+
+scripts: scripts.yaml

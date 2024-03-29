@@ -30,8 +30,10 @@ abstract class BaseStateBase<T> with Store {
     _state = AppState.loading;
     try {
       T response = await process();
-      if (response is List && (response as List).isEmpty) {
+
+      if (response is List && response.isEmpty) {
         _state = AppState.empty;
+        _data = response;
       } else {
         _state = AppState.success;
         _data = response;

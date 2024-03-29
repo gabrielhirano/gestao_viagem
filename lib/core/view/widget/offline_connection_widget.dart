@@ -14,7 +14,7 @@ class OfflineConnectionWidget extends StatelessWidget {
         radius: RadiusSize.circle,
         color: appColors.colorFeedbackNegative,
       ),
-      width: 120,
+      width: 122,
       height: 40,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

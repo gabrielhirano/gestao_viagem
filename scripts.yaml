@@ -1,0 +1,14 @@
+pipe_line:
+  - derry build_project
+  - derry view_test
+
+build_project:
+  - flutter clean
+  - flutter pub get
+  - flutter packages pub run build_runner build --delete-conflicting-outputs
+
+view_test:
+  - flutter test test/core/util/base_state_test.dart
+  - flutter test test/feature/expense/model/expense_model_test.dart
+  - flutter test test/feature/expense/controller/expense_controller_test.dart
+  - flutter test test/feature/expense/repository/expense_repository_test.dart
