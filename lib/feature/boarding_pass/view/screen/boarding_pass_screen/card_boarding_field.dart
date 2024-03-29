@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gestao_viajem_onfly/core/layout/components/app_text.dart';
-import 'package:gestao_viajem_onfly/core/layout/foundation/app_shapes.dart';
-import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';
+part of 'boarding_pass_screen.dart';
 
 class CardBoardingFieldWidget extends StatelessWidget {
   final String title;

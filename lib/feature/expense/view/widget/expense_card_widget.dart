@@ -16,8 +16,6 @@ class ExpenseCardWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       decoration: AppShapes.decoration(
         radius: RadiusSize.small,
-
-        // border: ShapesBorder(appColors.greyLight.withOpacity(0.1)),
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: 12,

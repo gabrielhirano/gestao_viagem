@@ -5,9 +5,11 @@ import 'package:gestao_viajem_onfly/core/layout/foundation/app_shapes.dart';
 import 'package:gestao_viajem_onfly/core/theme/theme_global.dart';
 import 'package:gestao_viajem_onfly/core/util/global.dart';
 import 'package:gestao_viajem_onfly/feature/boarding_pass/model/boarding_pass_model.dart';
-import 'package:gestao_viajem_onfly/feature/boarding_pass/view/widget/card_boarding_field_widget.dart';
+
 import 'package:gestao_viajem_onfly/feature/boarding_pass/view/widget/card_boarding_pass_widget.dart';
 import 'package:gestao_viajem_onfly/feature/boarding_pass/view/widget/dashed_line_ticket_widget.dart';
+
+part 'card_boarding_field.dart';
 
 class BoardingPassScreen extends StatelessWidget {
   final BoardingPassModel boardingPass;

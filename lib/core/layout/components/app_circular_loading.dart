@@ -21,13 +21,14 @@ class AppCircularLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     if (isCenter) {
       return Center(
-        child: _progress(context),
+        child: CircularProgressIndicator.adaptive(
+          valueColor: AlwaysStoppedAnimation<Color>(
+              loadingColor ?? appColors.colorBrandPrimaryBlueLight),
+          backgroundColor: backgroundColor ?? appColors.colorBrandPrimaryBlue,
+          strokeWidth: strokeWidth,
+        ),
       );
     }
-    return _progress(context);
-  }
-
-  Widget _progress(BuildContext context) {
     return CircularProgressIndicator.adaptive(
       valueColor: AlwaysStoppedAnimation<Color>(
           loadingColor ?? appColors.colorBrandPrimaryBlueLight),
