@@ -11,6 +11,7 @@ import 'package:gestao_viajem_onfly/core/service/interceptor/dio_connectivity_re
 import 'package:gestao_viajem_onfly/core/theme/app_colors.dart';
 import 'package:gestao_viajem_onfly/core/util/app_navigator.dart';
 import 'package:gestao_viajem_onfly/core/util/getit_global.dart';
+import 'package:gestao_viajem_onfly/feature/boarding_pass/shared/boarding_pass_injection.dart';
 import 'package:gestao_viajem_onfly/feature/expense/shared/expense_injection.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,6 +57,7 @@ mixin DependencyInjection {
     //! Features
     Future.wait([
       ExpenseInjection.inject(getIt),
+      BoardingPassInjection.inject(getIt),
     ]);
   }
 }
