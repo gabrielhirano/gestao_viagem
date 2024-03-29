@@ -89,7 +89,7 @@ A arquitetura do nosso projeto baseada em `Model-View-Controller (MVC)`. Foi con
 
 - **View**: A interface do usuário (UI) é projetada para ser minimalista e funcional, recebendo dados diretamente de um `Controller`.
 - **Controller**: Atua como intermediário entre a `View` e o `Repository`, gerenciando o estado e as ações do usuário.
-- **Repository**: Responsável pela comunicação com fontes de dados externas, utilizando o pacote `Dio` para realizar requisições HTTP.
+- **Repository**: Responsável pela comunicação com fontes de dados externas ou internas, utilizando o pacote `Dio` para realizar requisições HTTP e/ou recuperando dados locais do `SharedPreferences`.
 
 
 ### Tratamento de Exceções e Retorno de Dados
@@ -139,21 +139,25 @@ class ExpenseRepository {
 
 ```dart
   @action
-  Future<void> execute(Future<T> Function() value) async {
+  Future<void> execute(Future<T> Function() process) async {
     _state = AppState.loading;
-    await value().then((response) {
-      if (response.runtimeType == List && (response as List).isEmpty) {
+    try {
+      T response = await process();
+
+      if (response is List && response.isEmpty) {
         _state = AppState.empty;
+        _data = response;
       } else {
         _state = AppState.success;
         _data = response;
       }
-    }).onError<Failure>((error, stack) {
+    } catch (error) {
+      if (error is Failure) {
+        _error = error;
+      }
       _state = AppState.error;
-      _error = error;
-    });
+    }
   }
-}
 ```
 
 ## Arquitetura Offline First
