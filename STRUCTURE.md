@@ -14,7 +14,7 @@
 
 - Clone
 ```console
-git clone https://github.com/gabrielhirano/gestao_viajem.git
+git clone https://github.com/gabrielhirano/gestao_viagem.git
 ```
 Navegue até a pasta do projeto e no terminal ->
 ### **Primeira opção - Derry**
